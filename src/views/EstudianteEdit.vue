@@ -66,7 +66,7 @@
             </div>
             <div class="d-grid col-6 mx-auto mb-3">
               <button class="btn btn-warning">
-                <i class="fa-solid fa-refresh"></i> Guardar cambios
+                <i class="fa-solid fa-refresh"></i> Guardar Cambios
               </button>
             </div>
           </form>
