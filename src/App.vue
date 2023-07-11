@@ -102,14 +102,20 @@ body.mode-dark {
 /* .table > :not(caption) > * > * { */
 .table.mode-light > :not(caption) > * > * {
   /* background-color: transparent; */
-  background-color: rgba(248, 248, 248, 0.8);
+  background-color: rgba(248, 248, 248, 0.6) !important;
 }
 .table.mode-dark > :not(caption) > * > * {
   /* color: rgb(9, 32, 60); */
-  background-color: rgba(9, 32, 60, 0.9999999999) !important;
+  background-color: rgba(9, 32, 60, 0.2) !important;
+  /* background-color: transparent; */
   color: #dbe1d8;
 }
 .table.mode-dark {
-  border: 2px solid #555454; /* Cambia #fff al color que desees */
+  border: 1px solid #5a5b5f !important; /* Cambia #fff al color que desees */
 }
+/* .table.mode-dark > thead > tr > td {
+  border-bottom-color: #fff !important;
+  background-color: aqua !important;
+  font-size: 80px !important;
+} */
 </style>

@@ -53,161 +53,163 @@
           @click="changeMode"
         />
 
-        <label for="toggle_checkbox" class="checkbox-content">
+        <!-- <label for="toggle_checkbox" class="checkbox-content">
           <div id="star">
-            <!-- <div class="star" id="star-1">★</div>
-            <div class="star" id="star-2">★</div> -->
             <i class="fa-solid fa-sun"></i>
           </div>
           <div id="moon"></div>
-        </label>
+        </label> -->
+        <!-- <label for="toggle_checkbox2" class="checkbox-content">
+          <div id="sun">
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div id="moon">
+            <i class="fa-solid fa-moon"></i>
+          </div>
+        </label> -->
+        <div class="container-custom">
+          <input
+            id="checkbox"
+            type="checkbox"
+            v-model="darkmode"
+            @click="changeMode"
+          />
+          <label for="checkbox"></label>
+        </div>
       </div>
     </div>
   </nav>
 </template>
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 let darkmode = ref(false);
-const changeMode = () => {
+// console.log(darkmode.value);
+const toggle = () => {
+  const theme = localStorage.getItem("theme");
   const navbar = document.getElementById("navbar");
   const body = document.getElementById("body");
-  const table = document.getElementById("my_table");
+  const table = document.getElementById("mytable");
+  if (table) console.log(table);
   const elements = document.querySelectorAll(".element");
-  if (navbar.classList.contains("mode-light")) {
-    navbar.classList.remove("mode-light");
-    navbar.classList.add("mode-dark");
-    body.classList.remove("mode-light");
-    body.classList.add("mode-dark");
-    if (table) {
-      table.classList.remove("mode-light");
-      table.classList.add("mode-dark");
-    }
-    elements.forEach((el) => {
-      el.classList.toggle("mode-dark");
-    });
-  } else {
-    elements.forEach((el) => {
-      el.classList.toggle("mode-dark");
-    });
-    navbar.classList.remove("mode-dark");
+  console.log(theme);
+
+  if (theme === "light") {
+    darkmode.value = false;
     navbar.classList.add("mode-light");
-    body.classList.remove("mode-dark");
     body.classList.add("mode-light");
-    if (table) {
-      table.classList.remove("mode-dark");
-      table.classList.add("mode-light");
-    }
+    navbar.classList.remove("mode-dark");
+    body.classList.remove("mode-dark");
+    elements.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    table && table.classList.add("mode-light");
+    table && table.classList.remove("table-dark");
+    table && table.classList.remove("mode-dark");
+  } else {
+    darkmode.value = true;
+    navbar.classList.add("mode-dark");
+    body.classList.add("mode-dark");
+    elements.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    table && table.classList.remove("mode-light");
+    table && table.classList.add("table-dark");
+    table && table.classList.add("mode-dark");
   }
-  console.log(body);
-  // modeText = mode.value ? "dark" : "light";
-  // console.log(mode.value);
-  console.log(darkmode.value);
+};
+onMounted(() => toggle());
+const changeMode = () => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "light") {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+  toggle();
 };
 </script>
 <style scoped>
-.checkbox-content {
-  background-color: aqua;
-  margin-right: 0.5rem !important;
+.container-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  background-color: #09213b;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  animation: mover 2s infinite;
 }
-#toggle_checkbox {
+
+input[type="checkbox"] {
   display: none;
 }
 
-label {
-  display: block;
-  position: absolute;
-  /* top: 50%; */
-  right: 0;
-  /* left: 0; */
-  width: 69.6px;
-  height: 33.6px;
-  margin: 0 auto;
-  background-color: #77b5fe;
-  border-radius: 56px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  transition: 0.3s ease background-color;
-  overflow: hidden;
-}
-
-#star {
-  /* background: red; */
-  height: 100%;
+input + label {
+  font-size: 1.2rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: initial;
-  padding-left: 0.3rem;
-}
-#star i {
-  font-size: 1.5rem;
-  color: #fafd0f;
-  transform: scale(1);
+  border: 0.1rem solid var(--blue);
   border-radius: 50%;
-  transform: translateY(0%);
-  transition: 0.3s ease top, 0.3s ease left, 0.3s ease transform,
-    0.3s ease color;
-  z-index: 1;
-  /* transition: all 0.5s ease-in-out; */
+  background: var(--darkblue);
+  transition: 0.1s all;
+  cursor: pointer;
+  z-index: 999 !important;
 }
 
-#star-1 {
-  position: relative;
+input + label:hover {
+  transform: scale(0.95);
 }
 
-#star-2 {
-  position: absolute;
-  transform: rotateZ(36deg);
+input + label:after {
+  transition: all 1s ease-in-out;
+  font-family: "Font Awesome 5 Free"; /* Asegúrate de utilizar el nombre correcto de la fuente de Font Awesome */
+  content: "\f185";
+  display: inline-block;
+  font-weight: 900; /* Establece un peso de fuente adecuado para el icono lleno */
+  font-size: 1.3em; /* Ajusta el tamaño del icono según tus necesidades */
+  line-height: 1; /* Ajusta la altura de línea según tus necesidades */
+  color: white; /* Ajusta el color del icono según tus necesidades */
+  -webkit-text-stroke-width: 0; /* Desactiva el trazo de texto para que el icono esté lleno */
 }
 
-.star {
-  top: -0;
-  left: -4.2px; /* -7px reducido en un 40% */
-  font-size: 32.4px; /* 54px reducido en un 40% */
-  line-height: 16.8px; /* 28px reducido en un 40% */
-  color: #fafd0f;
-  transition: 0.3s ease color;
+input:checked + label {
+  background: var(--blue);
+  transform: scale(1.1);
 }
 
-#moon {
-  position: absolute;
-  bottom: -31.2px; /* -52px reducido en un 40% */
-  right: 4.8px; /* 8px reducido en un 40% */
-  width: 24px; /* 40px reducido en un 40% */
-  height: 24px; /* 40px reducido en un 40% */
-  background-color: #fff;
-  border-radius: 50%;
-  transition: 0.3s ease bottom;
+input:checked + label:hover {
+  background: var(--blue);
+  transform: scale(1.05);
 }
 
-#moon:before {
-  content: "";
-  position: absolute;
-  top: -7.2px; /* -12px reducido en un 40% */
-  left: -10.2px; /* -17px reducido en un 40% */
-  width: 24px; /* 40px reducido en un 40% */
-  height: 24px; /* 40px reducido en un 40% */
-  /* background-color: #03a9f4; */
-  border-radius: 50%;
-  transition: 0.3s ease background-color;
+input:checked + label:after {
+  transition: all 1s ease-in-out;
+  /* content: "🌙"; */
+  font-family: "Font Awesome 5 Free"; /* Asegúrate de utilizar el nombre correcto de la fuente de Font Awesome */
+  content: "\f186";
+  display: inline-block;
+  font-weight: 900; /* Establece un peso de fuente adecuado para el icono lleno */
+  font-size: 1.3em; /* Ajusta el tamaño del icono según tus necesidades */
+  line-height: 1; /* Ajusta la altura de línea según tus necesidades */
+  color: white; /* Ajusta el color del icono según tus necesidades */
+  -webkit-text-stroke-width: 0; /* Desactiva el trazo de texto para que el icono esté lleno */
 }
-
-#toggle_checkbox:checked + label {
-  background-color: #000;
-}
-
-#toggle_checkbox:checked + label #star {
-  top: 3px;
-  left: 64px;
-  /* transform: scale(0.3); */
-  /* background-color: yellow; */
-  transform: translateY(100%);
-  transition: all 0.5s ease-in-out;
-}
-#toggle_checkbox:checked + label #moon {
-  bottom: 8px;
-}
-
-#toggle_checkbox:checked + label #moon:before {
-  background-color: #000;
+@keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+  /* 75% {
+    transform: translateY(-5px);
+  } */
+  100% {
+    transform: translateY(0);
+  }
 }
 </style>

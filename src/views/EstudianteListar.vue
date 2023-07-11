@@ -3,8 +3,9 @@
     <div class="col-lg-8 offset-lg-2">
       <div class="table-responsive">
         <table
-          class="table-bordered table table-hover mode-light"
-          id="my_table"
+          class="table-bordered table table-hover"
+          :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+          id="mytable"
         >
           <thead>
             <tr>
@@ -19,16 +20,19 @@
           </thead>
           <tbody class="table-group-divider" id="contenido">
             <tr v-if="cargando">
-              <td colspan="6"><h3>Cargando...</h3></td>
+              <td colspan="6" class="text-center">
+                <span class="loader" :class="{ 'mode-dark': darkmode }"></span>
+                <p>Cargando datos ...</p>
+              </td>
             </tr>
             <tr v-else v-for="(est, i) in estudiantes" :key="est.id">
               <td v-text="i + 1"></td>
               <td v-text="est.id"></td>
-              <td>
+              <td class="text-center">
                 <img
                   alt=""
                   v-if="est.foto"
-                  style="width: 150px !important"
+                  style="width: 3rem !important"
                   :src="est.foto"
                   class="img-thumbnail"
                 />
@@ -81,10 +85,16 @@ import { confirmar } from "../funciones";
 export default {
   name: "HomeView",
   data() {
-    return { estudiantes: null, cargando: false };
+    return { estudiantes: null, cargando: false, darkmode: false };
   },
   mounted() {
     this.getEstudiantes();
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      this.darkmode = false;
+    } else {
+      this.darkmode = true;
+    }
   },
   methods: {
     getEstudiantes() {
@@ -109,3 +119,29 @@ export default {
   },
 };
 </script>
+<style scoped>
+.loader {
+  margin-top: 2rem;
+  width: 62px;
+  height: 62px;
+  border: 5px solid #1a7e91;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader.mode-dark {
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+}
+</style>
