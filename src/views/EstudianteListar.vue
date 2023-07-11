@@ -2,7 +2,10 @@
   <div class="row mt-4">
     <div class="col-lg-8 offset-lg-2">
       <div class="table-responsive">
-        <table class="table-bordered table table-hover">
+        <table
+          class="table-bordered table table-hover mode-light"
+          id="my_table"
+        >
           <thead>
             <tr>
               <th>#</th>

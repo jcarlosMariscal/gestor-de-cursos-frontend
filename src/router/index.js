@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Inicio from "../views/Inicio.vue";
+import EstudianteListar from "../views/EstudianteListar.vue";
 import EstudianteNew from "../views/EstudianteNew.vue";
 import EstudianteEdit from "../views/EstudianteEdit.vue";
 import EstudianteView from "../views/EstudianteView.vue";
@@ -7,8 +8,13 @@ import EstudianteView from "../views/EstudianteView.vue";
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "inicio",
+    component: Inicio,
+  },
+  {
+    path: "/listar-estudiantes",
+    name: "listar-estudiantes",
+    component: EstudianteListar,
   },
   {
     path: "/createE",

@@ -1,15 +1,165 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      .element {
+        position: fixed;
+
+        border-radius: 50%;
+        z-index: -1;
+      }
+      .element1 {
+        transform: translate(-50%, -50%);
+        background-color: #0f5065;
+        background-image: linear-gradient(
+          43deg,
+          #0f5065 0%,
+          #137a8a 46%,
+          #c926ca 100%
+        );
+
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 4s infinite;
+      }
+      .element2 {
+        transform: translate(-40%, 80%);
+        background-color: #0f6555;
+        background-image: linear-gradient(
+          43deg,
+          #0f6555 0%,
+          #89138a 46%,
+          #7326ca 100%
+        );
+
+        top: 20%;
+        left: 80%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 5s infinite;
+      }
+      .element3 {
+        transform: translate(80%, -10%);
+        background-color: #0f2965;
+        background-image: linear-gradient(
+          43deg,
+          #0f2965 0%,
+          #138a3e 46%,
+          #5d0bb9 100%
+        );
+
+        top: 6%;
+        left: 24%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 8s infinite;
+      }
+      .element4 {
+        transform: translate(85%, 21%);
+        background-color: #0f1465;
+        background-image: linear-gradient(
+          43deg,
+          #0f1465 0%,
+          #13868a 46%,
+          #b086dc 100%
+        );
+
+        top: 85%;
+        left: 35%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 4s infinite;
+      }
+      .element5 {
+        transform: translate(-20%, -60%);
+        background-color: #0f1465;
+        background-image: linear-gradient(
+          43deg,
+          #0f1465 0%,
+          #13868a 46%,
+          #b086dc 100%
+        );
+
+        top: 72%;
+        left: 10%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 5s infinite;
+      }
+      .element6 {
+        top: 92%;
+        left: 45%;
+        width: 200px;
+        height: 200px;
+        animation: pulse 6s infinite;
+      }
+      @keyframes pulse {
+        25% {
+          opacity: 0.4;
+          transform: scale(1);
+        }
+
+        /* 25% {
+          transform: scale(0.75);
+        }
+        50% {
+          transform: scale(0.5);
+        } */
+        100% {
+          transform: scale(0);
+        }
+      }
+      .element::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px solid #102a5a;
+        border-radius: 50%;
+        opacity: 0;
+        animation: fireAnimation 4s infinite;
+      }
+
+      @keyframes fireAnimation {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+      .element.mode-dark::before {
+        border: 2px solid white;
+      }
+    </style>
   </head>
-  <body>
+  <body id="body" class="mode-light">
+    <!-- <div class="element element1"></div>
+    <div class="element element2"></div>
+    <div class="element element3"></div>
+    <div class="element element4"></div>
+    <div class="element element5"></div> -->
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
