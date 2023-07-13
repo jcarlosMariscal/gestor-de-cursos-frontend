@@ -3,10 +3,10 @@
     <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-header bg-dark text-white text-center">
-          Editar estudiante
+          {{ formEdit ? "Editar Estudiante" : "Registrar estudiante" }}
         </div>
         <div class="card-body">
-          <form @submit="actualizar">
+          <form @submit="guardar">
             <div class="d-grid col-6 mx-auto mb-3">
               <img
                 alt=""
@@ -66,7 +66,14 @@
             </div>
             <div class="d-grid col-6 mx-auto mb-3">
               <button class="btn btn-warning">
-                <i class="fa-solid fa-refresh"></i> Guardar Cambios
+                <i
+                  class="fa-solid"
+                  :class="{
+                    'fa-refresh': formEdit,
+                    'fa-floppy-disk': !formEdit,
+                  }"
+                ></i>
+                {{ formEdit ? "Guardar Cambios" : "Registrar" }}
               </button>
             </div>
           </form>
@@ -86,19 +93,25 @@ export default {
   name: "HomeView",
   data() {
     return {
-      id: 0,
+      id: false,
       nombre: "",
       apellido: "",
       foto: "",
       url: "http://academicobackend.test/api/v1/estudiantes",
       cargando: false,
+      formEdit: false,
     };
   },
   mounted() {
     const route = useRoute();
     this.id = route.params.id;
-    this.url += '/' + this.id;
-    this.getEstudiante();
+    if (this.id) this.formEdit = true;
+    if (this.formEdit) {
+      this.url += '/' + this.id;
+      this.getEstudiante();
+
+    }
+
   },
   methods: {
     getEstudiante() {
@@ -108,7 +121,7 @@ export default {
         this.foto = res.data.data.foto;
 })
     },
-    actualizar(e) {
+    guardar(e) {
       e.preventDefault();
       let miFoto = document.getElementById("fotoimg");
       this.foto = miFoto.src;
@@ -119,7 +132,11 @@ export default {
         mostrarAlerta("Ingrese un apellido", "warning", "apellido")
       } else {
         let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim() }
-        enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado')
+        if (this.formEdit) {
+          enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado')
+        } else {
+enviarSolicitud('POST',parametros, this.url, 'Estudiante registrado')
+        }
       }
     },
     previsualizarFoto(e) {

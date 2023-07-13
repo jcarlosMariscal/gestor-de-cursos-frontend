@@ -45,7 +45,7 @@ export function enviarSolicitud(method, parametros, url, mensaje) {
       if (state == 200) {
         mostrarAlerta(mensaje, "success");
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/students";
         }, 1000);
       } else {
         mostrarAlerta("No se pudo recuperar la respuesta", "error");

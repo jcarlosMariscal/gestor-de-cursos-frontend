@@ -19,6 +19,7 @@ body.mode-light {
     #d7ebef 50%,
     #b4e7f1 100%
   );
+  background-repeat: no-repeat;
 
   /* background: linear-gradient(-45deg, #f5eeec, #f0e6ea, #ddf4f8, #ced6d5);
   background-size: 400% 400%;

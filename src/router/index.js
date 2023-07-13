@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Inicio from "../views/Inicio.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 import EstudianteListar from "../views/EstudianteListar.vue";
-import EstudianteNew from "../views/EstudianteNew.vue";
-import EstudianteEdit from "../views/EstudianteEdit.vue";
+// import EstudianteNew from "../views/EstudianteNew.vue";
+import EstudianteForm from "../views/EstudianteForm.vue";
 import EstudianteView from "../views/EstudianteView.vue";
 
 const routes = [
@@ -12,19 +14,24 @@ const routes = [
     component: Inicio,
   },
   {
-    path: "/listar-estudiantes",
-    name: "listar-estudiantes",
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
+  },
+  {
+    path: "/students",
+    name: "students",
     component: EstudianteListar,
   },
   {
-    path: "/createE",
-    name: "create",
-    component: EstudianteNew,
-  },
-  {
-    path: "/editE/:id",
-    name: "editE",
-    component: EstudianteEdit,
+    path: "/form-student/:id?",
+    name: "form-student",
+    component: EstudianteForm,
   },
   {
     path: "/viewE/:id",

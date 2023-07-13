@@ -57,7 +57,7 @@
                 ></router-link>
                 &nbsp;
                 <router-link
-                  :to="{ path: 'editE/' + est.id }"
+                  :to="{ path: 'form-student/' + est.id }"
                   class="btn btn-success"
                   ><i class="fa-solid fa-edit"></i
                 ></router-link>
