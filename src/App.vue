@@ -12,12 +12,12 @@ import Header from "./components/Header.vue";
 <style>
 /* GRADIENT BACKGROUND */
 body.mode-light {
-  background-color: #dbe1d8;
+  background-color: #f2f8ef;
   background-image: linear-gradient(
     0deg,
-    #dbe1d8 0%,
+    #fafdf7 0%,
     #d7ebef 50%,
-    #b4e7f1 100%
+    #ffffff 100%
   );
   background-repeat: no-repeat;
 
@@ -71,7 +71,7 @@ body.mode-light {
   color: #1a7e91 !important;
 }
 .navbar.mode-dark {
-  background-color: rgb(16, 78, 90) !important;
+  background-color: rgba(16, 78, 90, 0.8) !important;
   /* background: rgb(255, 255, 255); */
   box-shadow: rgba(255, 255, 255, 0.16) 0px 2px 5px,
     rgba(255, 255, 255, 0.23) 0px 2px 5px;
@@ -119,4 +119,15 @@ body.mode-dark {
   background-color: aqua !important;
   font-size: 80px !important;
 } */
+.bg-content {
+  background-color: rgba(215, 235, 239, 0.8) !important;
+  box-shadow: rgba(26, 125, 145, 0.16) 0px 2px 5px,
+    rgba(26, 125, 145, 0.23) 0px 2px 5px;
+}
+.bg-content.mode-dark {
+  background-color: rgba(16, 78, 90, 0.8) !important;
+  box-shadow: rgba(255, 255, 255, 0.16) 0px 2px 5px,
+    rgba(255, 255, 255, 0.23) 0px 2px 5px;
+  color: #fff !important;
+}
 </style>

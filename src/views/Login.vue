@@ -1,7 +1,246 @@
 <template>
-  <div>Login</div>
+  <section class="container forms">
+    <div class="form login">
+      <div class="form-content">
+        <header>Iniciar sesión</header>
+        <form action="#">
+          <div class="field input-field">
+            <input type="email" placeholder="Email" class="input" />
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Password" class="password" />
+            <i class="bx bx-hide eye-icon"></i>
+          </div>
+          <div class="form-link">
+            <a href="#" class="forgot-pass">¿Olvídaste tu contraseña?</a>
+          </div>
+          <div class="field button-field">
+            <button>Iniciar sesión</button>
+          </div>
+        </form>
+        <div class="form-link">
+          <span
+            >¿Aún no tienes una cuenta?
+            <router-link to="/register" class="link signup-link"
+              >Regístrate</router-link
+            >
+          </span>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div class="media-options">
+        <a href="#" class="field facebook">
+          <i class="bx bxl-google facebook-icon"></i>
+          <span>Iniciar sesión con Google</span>
+        </a>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { auth } from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-<style scoped></style>
+const email = ref("");
+const password = ref("");
+const router = useRouter(); // get a reference to our vue router
+
+const registerUser = () => {
+  if (!email.value || !password.value) {
+    console.error(
+      "Por favor, ingresa un correo electrónico y una contraseña válidos."
+    );
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((response) => {
+      // Usuario registrado exitosamente
+      console.log(response);
+    })
+    .catch((error) => {
+      // Manejar errores de registro
+      console.error(
+        "Error al registrar el usuario:",
+        error.code,
+        error.message
+      );
+      // Mostrar un mensaje de error específico al usuario según el tipo de error
+      if (error.code === "auth/weak-password") {
+        console.error(
+          "La contraseña es demasiado débil. Debe tener al menos 6 caracteres."
+        );
+      } else if (error.code === "auth/invalid-email") {
+        console.error("El correo electrónico proporcionado no es válido.");
+      } else {
+        console.error("Ha ocurrido un error durante el registro.");
+      }
+    });
+};
+</script>
+
+<style scoped>
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #4070f4; */
+  column-gap: 30px;
+}
+.form {
+  position: absolute;
+  max-width: 430px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 6px;
+  background: #fff;
+}
+.form.signup {
+  opacity: 0;
+  pointer-events: none;
+}
+.forms.show-signup .form.signup {
+  opacity: 1;
+  pointer-events: auto;
+}
+.forms.show-signup .form.login {
+  opacity: 0;
+  pointer-events: none;
+}
+header {
+  font-size: 28px;
+  font-weight: 600;
+  color: #232836;
+  text-align: center;
+}
+form {
+  margin-top: 30px;
+}
+.form .field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 6px;
+}
+.field input,
+.field button {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 6px;
+}
+.field input {
+  outline: none;
+  padding: 0 15px;
+  border: 1px solid#CACACA;
+}
+.field input:focus {
+  border-bottom-width: 2px;
+}
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #8b8b8b;
+  cursor: pointer;
+  padding: 5px;
+}
+.field button {
+  color: #fff;
+  background-color: #0171d3;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.field button:hover {
+  background-color: #016dcb;
+}
+.form-link {
+  text-align: center;
+  margin-top: 10px;
+}
+.form-link span,
+.form-link a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232836;
+}
+.form a {
+  color: #0171d3;
+  text-decoration: none;
+}
+.form-content a:hover {
+  text-decoration: underline;
+}
+.line {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  margin: 36px 0;
+  background-color: #d4d4d4;
+}
+.line::before {
+  content: "Or";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  color: #8b8b8b;
+  padding: 0 15px;
+}
+.media-options a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a.facebook {
+  color: #fff;
+  background-color: #4267b2;
+}
+a.facebook .facebook-icon {
+  height: 28px;
+  width: 28px;
+  color: #0171d3;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.facebook-icon,
+img.google-img {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+img.google-img {
+  height: 20px;
+  width: 20px;
+  object-fit: cover;
+}
+a.google {
+  border: 1px solid #cacaca;
+}
+a.google span {
+  font-weight: 500;
+  opacity: 0.6;
+  color: #232836;
+}
+@media screen and (max-width: 400px) {
+  .form {
+    padding: 20px 10px;
+  }
+}
+</style>

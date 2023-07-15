@@ -89,6 +89,7 @@ const toggle = () => {
   const table = document.getElementById("mytable");
   if (table) console.log(table);
   const elements = document.querySelectorAll(".element");
+  const bg2 = document.querySelectorAll(".bg-content");
   console.log(theme);
 
   if (theme === "light") {
@@ -100,6 +101,9 @@ const toggle = () => {
     elements.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
+    bg2.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
     table && table.classList.add("mode-light");
     table && table.classList.remove("table-dark");
     table && table.classList.remove("mode-dark");
@@ -108,6 +112,9 @@ const toggle = () => {
     navbar.classList.add("mode-dark");
     body.classList.add("mode-dark");
     elements.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    bg2.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
     table && table.classList.remove("mode-light");
