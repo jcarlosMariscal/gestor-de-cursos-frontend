@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "./firebaseConfig";
+import "./helpers/firebaseConfig";
 import "boxicons/css/boxicons.min.css";
 
 createApp(App).use(store).use(router).mount("#app");

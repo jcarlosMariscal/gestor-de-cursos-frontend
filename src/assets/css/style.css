@@ -887,7 +887,7 @@ section {
 --------------------------------------------------------------*/
 .cta {
   background: linear-gradient(rgba(40, 58, 90, 0.9), rgba(40, 58, 90, 0.9)),
-    url("./img/cta-bg.jpg") fixed center center;
+    url("../img/cta-bg.jpg") fixed center center;
   background-size: cover;
   padding: 120px 0;
 }
@@ -1831,5 +1831,5 @@ section {
 }
 
 .custom-bg-img {
-  background-image: url("./img/why-us.png");
+  background-image: url("../img/why-us.png");
 }

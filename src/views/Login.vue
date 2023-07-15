@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { auth } from "../firebaseConfig";
+import { auth } from "../helpers/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -244,3 +244,4 @@ a.google span {
   }
 }
 </style>
+../helpers/firebaseConfig

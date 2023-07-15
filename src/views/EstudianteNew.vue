@@ -77,7 +77,7 @@
 </template>
 
 <script lang="js">
-import { mostrarAlerta, enviarSolicitud } from "../funciones";
+import { mostrarAlerta, enviarSolicitud } from "../helpers/funciones";
 
 export default {
   name: "HomeView",
@@ -119,3 +119,4 @@ export default {
 </script>
 
 <style scoped></style>
+../helpers/funciones

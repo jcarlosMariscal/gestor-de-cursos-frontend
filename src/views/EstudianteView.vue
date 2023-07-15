@@ -1,7 +1,10 @@
 <template>
   <div class="row mt-3">
     <div class="col-md-6 offset-md-3">
-      <div class="card">
+      <div
+        class="card bg-content"
+        :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+      >
         <div class="card-header bg-dark text-white text-center">
           Detalle del estudiante
         </div>
@@ -49,7 +52,7 @@
 </template>
 
 <script lang="js">
-import { mostrarAlerta, enviarSolicitud } from "../funciones";
+import { mostrarAlerta, enviarSolicitud } from "../helpers/funciones";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
@@ -64,6 +67,7 @@ export default {
       foto: "",
       url: "http://academicobackend.test/api/v1/estudiantes",
       cargando: false,
+      darkmode: false,
     };
   },
   mounted() {
@@ -71,6 +75,12 @@ export default {
     this.id = route.params.id;
     this.url += '/' + this.id;
     this.getEstudiante();
+        const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      this.darkmode = false;
+    } else {
+      this.darkmode = true;
+    }
   },
   methods: {
     getEstudiante() {
@@ -108,3 +118,4 @@ export default {
 </script>
 
 <style scoped></style>
+../helpers/funciones

@@ -86,8 +86,8 @@ const toggle = () => {
   const theme = localStorage.getItem("theme");
   const navbar = document.getElementById("navbar");
   const body = document.getElementById("body");
-  const table = document.getElementById("mytable");
-  if (table) console.log(table);
+  // const table = document.getElementById("mytable");
+  // if (table) console.log(table);
   const elements = document.querySelectorAll(".element");
   const bg2 = document.querySelectorAll(".bg-content");
   console.log(theme);
@@ -104,9 +104,6 @@ const toggle = () => {
     bg2.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
-    table && table.classList.add("mode-light");
-    table && table.classList.remove("table-dark");
-    table && table.classList.remove("mode-dark");
   } else {
     darkmode.value = true;
     navbar.classList.add("mode-dark");
@@ -117,9 +114,6 @@ const toggle = () => {
     bg2.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
-    table && table.classList.remove("mode-light");
-    table && table.classList.add("table-dark");
-    table && table.classList.add("mode-dark");
   }
 };
 onMounted(() => toggle());

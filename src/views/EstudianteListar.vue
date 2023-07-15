@@ -3,9 +3,8 @@
     <div class="col-lg-8 offset-lg-2">
       <div class="table-responsive">
         <table
-          class="table-bordered table table-hover"
+          class="table-bordered table table-hover bg-content"
           :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
-          id="mytable"
         >
           <thead>
             <tr>
@@ -80,7 +79,7 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-import { confirmar } from "../funciones";
+import { confirmar } from "../helpers/funciones";
 
 export default {
   name: "HomeView",
@@ -145,3 +144,4 @@ export default {
   border-bottom-color: transparent;
 }
 </style>
+../helpers/funciones

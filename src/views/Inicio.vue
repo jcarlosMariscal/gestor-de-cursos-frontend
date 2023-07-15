@@ -8,7 +8,9 @@
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <h1>Better Solutions For Your Business</h1>
+          <h1 :class="{ 'text-bg-light': !darkmode }">
+            Better Solutions For Your Business
+          </h1>
           <h2>
             We are team of talented designers making websites with Bootstrap
           </h2>
@@ -33,7 +35,11 @@
           data-aos-delay="200"
         >
           <!-- file:///C:/Users/jr349/Downloads/Arsha/Arsha/assets/vendor/bootstrap/ -->
-          <img src="../img/hero-img.png" class="img-fluid animated" alt="" />
+          <img
+            src="../assets/img/hero-img.png"
+            class="img-fluid animated"
+            alt=""
+          />
         </div>
       </div>
     </div>
@@ -47,37 +53,61 @@
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-1.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-1.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
 
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-2.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-2.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
 
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-3.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-3.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
 
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-4.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-4.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
 
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-5.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-5.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
 
           <div
             class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
           >
-            <img src="../img/clients/client-6.png" class="img-fluid" alt="" />
+            <img
+              src="../assets/img/clients/client-6.png"
+              class="img-fluid"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -252,7 +282,11 @@
           <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member d-flex align-items-start">
               <div class="pic">
-                <img src="../img/team/team-1.jpg" class="img-fluid" alt="" />
+                <img
+                  src="../assets/img/team/team-1.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
               <div class="member-info">
                 <h4>Walter White</h4>
@@ -277,7 +311,11 @@
           >
             <div class="member d-flex align-items-start">
               <div class="pic">
-                <img src="../img/team/team-2.jpg" class="img-fluid" alt="" />
+                <img
+                  src="../assets/img/team/team-2.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
               <div class="member-info">
                 <h4>Sarah Jhonson</h4>
@@ -298,7 +336,11 @@
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
               <div class="pic">
-                <img src="../img/team/team-3.jpg" class="img-fluid" alt="" />
+                <img
+                  src="../assets/img/team/team-3.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
               <div class="member-info">
                 <h4>William Anderson</h4>
@@ -319,7 +361,11 @@
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
             <div class="member d-flex align-items-start">
               <div class="pic">
-                <img src="../img/team/team-4.jpg" class="img-fluid" alt="" />
+                <img
+                  src="../assets/img/team/team-4.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
               <div class="member-info">
                 <h4>Amanda Jepson</h4>
@@ -362,11 +408,23 @@
   <!-- End Hero -->
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted, ref } from "vue";
+
+const darkmode = ref(false);
+onMounted(() => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "light") {
+    darkmode.value = false;
+  } else {
+    darkmode.value = true;
+  }
+});
+</script>
 
 <style scoped>
-@import "../bootstrap.min.css";
-@import "../style.css";
+@import "../assets/css/bootstrap.min.css";
+@import "../assets/css/style.css";
 
 .custom-bg-transparent {
   background: transparent !important;
