@@ -6,7 +6,12 @@
       :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
     >
       <div class="form-content">
-        <header>Registrarse</header>
+        <header
+          class="theme-text"
+          :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+        >
+          Registrarse
+        </header>
         <form action="#">
           <div class="field input-field">
             <input
@@ -47,6 +52,8 @@
         </form>
         <div class="form-link">
           <span
+            class="theme-text"
+            :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
             >¿Ya tienes una cuenta?
             <router-link to="/login" class="link login-link"
               >Inicia sesión</router-link
@@ -54,7 +61,7 @@
           </span>
         </div>
       </div>
-      <div class="text-center">Or</div>
+      <div class="line-custom theme-text">O</div>
       <div class="media-options">
         <a href="#" class="field facebook">
           <!-- <i class="bx bxl-facebook facebook-icon"></i> -->
@@ -71,6 +78,7 @@ import { auth } from "../helpers/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { alertaForm } from "../helpers/funciones";
 
 const email = ref("");
 const password = ref("");
@@ -115,7 +123,6 @@ const validatePassword = () => {
 
 const registerUser = (e) => {
   e.preventDefault();
-
   if (!email.value || !password.value) {
     errForm.value = true;
     errMsg.value =
@@ -126,7 +133,13 @@ const registerUser = (e) => {
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((response) => {
       // Usuario registrado exitosamente
-      console.log(response);
+      // console.log(response);
+      alertaForm(
+        "Usuario registrado. Inicie sesión a continuación",
+        "success",
+        3000
+      );
+      setTimeout(() => router.push("/login"), 3000);
     })
     .catch((error) => {
       // Manejar errores de registro
@@ -246,12 +259,18 @@ form {
 .form-content a:hover {
   text-decoration: underline;
 }
+.line-custom {
+  text-align: center;
+  padding: 0.1rem 0;
+  border-bottom: 1px solid #d4d4d4;
+}
 .line {
   position: relative;
   height: 1px;
   width: 100%;
   margin: 36px 0;
-  background-color: #d4d4d4;
+  background-color: #d4d4d4 !important;
+  z-index: 1;
 }
 /* .line::before {
   content: "Or";
@@ -259,9 +278,10 @@ form {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: transparent;
-  color: #8b8b8b;
+  background: transparent;
+  color: #d4d4d4;
   padding: 0 15px;
+  z-index: 2;
 } */
 .media-options a {
   display: flex;
@@ -315,4 +335,3 @@ a.google span {
   color: red;
 }
 </style>
-../helpers/firebaseConfig

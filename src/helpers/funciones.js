@@ -53,3 +53,14 @@ export function enviarSolicitud(method, parametros, url, mensaje) {
     })
     .catch((err) => mostrarAlerta("Servidor no disponible", "error"));
 }
+
+export function alertaForm(title, icon, timer = 2000) {
+  Swal.fire({
+    position: "top-right",
+    customClass: { popup: "animated zoonIn" },
+    icon: icon,
+    title: title,
+    showConfirmButton: false,
+    timer: timer,
+  });
+}

@@ -103,4 +103,11 @@ body.mode-dark {
   color: #030b46 !important;
   /* background: transparent; */
 }
+
+.theme-text.mode-light {
+  color: #1a7e91 !important;
+}
+.theme-text.mode-dark {
+  color: #dbe1d8 !important;
+}
 </style>

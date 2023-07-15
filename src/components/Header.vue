@@ -90,6 +90,7 @@ const toggle = () => {
   // if (table) console.log(table);
   const elements = document.querySelectorAll(".element");
   const bg2 = document.querySelectorAll(".bg-content");
+  const theme_text = document.querySelectorAll(".theme-text");
   console.log(theme);
 
   if (theme === "light") {
@@ -104,6 +105,9 @@ const toggle = () => {
     bg2.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
+    theme_text.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
   } else {
     darkmode.value = true;
     navbar.classList.add("mode-dark");
@@ -112,6 +116,9 @@ const toggle = () => {
       el.classList.toggle("mode-dark");
     });
     bg2.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    theme_text.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
   }
