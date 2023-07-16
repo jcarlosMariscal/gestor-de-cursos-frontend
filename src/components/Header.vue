@@ -28,6 +28,9 @@
           <li class="nav-item">
             <router-link to="/" class="nav-link">Inicio</router-link>
           </li>
+          <li class="nav-item">
+            <button @click="cerrar">Logout</button>
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -79,7 +82,12 @@
   </nav>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
+import { auth } from "../helpers/firebaseConfig";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const isLoggedIn = ref(true);
 let darkmode = ref(false);
 // console.log(darkmode.value);
 const toggle = () => {
@@ -132,6 +140,18 @@ const changeMode = () => {
     localStorage.setItem("theme", "light");
   }
   toggle();
+};
+const cerrar = () => {
+  auth
+    .signOut()
+    .then(() => {
+      console.log("Usuario cerró sesión.");
+      router.push("/");
+    })
+    .catch((error) => {
+      // Manejar errores de cierre de sesión
+      console.error(error);
+    });
 };
 </script>
 <style scoped>

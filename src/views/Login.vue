@@ -1,25 +1,49 @@
 <template>
   <section class="container forms">
-    <div class="form login">
+    <!-- Signup Form -->
+    <div
+      class="form signup bg-content"
+      :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+    >
       <div class="form-content">
-        <header>Iniciar sesión</header>
+        <header
+          class="theme-text"
+          :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+        >
+          Iniciar sesión
+        </header>
         <form action="#">
           <div class="field input-field">
-            <input type="email" placeholder="Email" class="input" />
+            <input
+              type="email"
+              placeholder="ejemplo@gmail.com"
+              class="input"
+              v-model="email"
+            />
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Password" class="password" />
-            <i class="bx bx-hide eye-icon"></i>
+            <input
+              type="password"
+              placeholder="Escriba su contraseña"
+              class="password"
+              v-model="password"
+            />
+            <i class="bx bx-hide eye-icon" @click="eyeIcon"></i>
+          </div>
+          <div class="alert alert-danger err-form" v-if="errForm" role="alert">
+            {{ errMsg }}
           </div>
           <div class="form-link">
             <a href="#" class="forgot-pass">¿Olvídaste tu contraseña?</a>
           </div>
           <div class="field button-field">
-            <button>Iniciar sesión</button>
+            <button @click="registerUser">Iniciar sesión</button>
           </div>
         </form>
         <div class="form-link">
           <span
+            class="theme-text"
+            :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
             >¿Aún no tienes una cuenta?
             <router-link to="/register" class="link signup-link"
               >Regístrate</router-link
@@ -27,9 +51,10 @@
           </span>
         </div>
       </div>
-      <div class="line"></div>
+      <div class="line-custom theme-text">O</div>
       <div class="media-options">
         <a href="#" class="field facebook">
+          <!-- <i class="bx bxl-facebook facebook-icon"></i> -->
           <i class="bx bxl-google facebook-icon"></i>
           <span>Iniciar sesión con Google</span>
         </a>
@@ -40,44 +65,72 @@
 
 <script setup>
 import { auth } from "../helpers/firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref } from "vue";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { alertaForm } from "../helpers/funciones";
 
 const email = ref("");
 const password = ref("");
+const errForm = ref(false);
+const errMsg = ref("");
+const darkmode = ref(false);
 const router = useRouter(); // get a reference to our vue router
 
-const registerUser = () => {
+onMounted(() => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "light") {
+    darkmode.value = false;
+  } else {
+    darkmode.value = true;
+  }
+});
+
+const eyeIcon = (e) => {
+  console.log(e);
+  const passwordInput = e.target.previousElementSibling;
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    e.target.classList.replace("bx-hide", "bx-show");
+    return;
+  }
+  passwordInput.type = "password";
+  e.target.classList.replace("bx-show", "bx-hide");
+};
+
+const registerUser = (e) => {
+  e.preventDefault();
   if (!email.value || !password.value) {
-    console.error(
-      "Por favor, ingresa un correo electrónico y una contraseña válidos."
-    );
+    errForm.value = true;
+    errMsg.value =
+      "Por favor, ingresa un correo electrónico y una contraseña válidos";
     return;
   }
 
-  createUserWithEmailAndPassword(auth, email.value, password.value)
+  signInWithEmailAndPassword(auth, email.value, password.value)
     .then((response) => {
-      // Usuario registrado exitosamente
-      console.log(response);
+      // alertaForm(
+      //   "Usuario registrado. Inicie sesión a continuación",
+      //   "success",
+      //   3000
+      // );
+      console.log("Successfully logged in!");
+      router.push("/students"); // redirect to the feed
     })
     .catch((error) => {
-      // Manejar errores de registro
-      console.error(
-        "Error al registrar el usuario:",
-        error.code,
-        error.message
-      );
-      // Mostrar un mensaje de error específico al usuario según el tipo de error
-      if (error.code === "auth/weak-password") {
-        console.error(
-          "La contraseña es demasiado débil. Debe tener al menos 6 caracteres."
-        );
-      } else if (error.code === "auth/invalid-email") {
-        console.error("El correo electrónico proporcionado no es válido.");
-      } else {
-        console.error("Ha ocurrido un error durante el registro.");
-      }
+      console.log(error);
+      // const errorMessages = {
+      //   "auth/weak-password":
+      //     "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.",
+      //   "auth/invalid-email":
+      //     "El correo electrónico proporcionado no es válido.",
+      //   "auth/email-already-in-use":
+      //     "Ya hay un usuario registrado con ese correo",
+      // };
+      // errMsg.value =
+      //   errorMessages[error.code] ||
+      //   "Ha ocurrido un error durante el registro.";
+      // errForm.value = true;
     });
 };
 </script>
@@ -99,10 +152,6 @@ const registerUser = () => {
   padding: 30px;
   border-radius: 6px;
   background: #fff;
-}
-.form.signup {
-  opacity: 0;
-  pointer-events: none;
 }
 .forms.show-signup .form.signup {
   opacity: 1;
@@ -181,23 +230,30 @@ form {
 .form-content a:hover {
   text-decoration: underline;
 }
+.line-custom {
+  text-align: center;
+  padding: 0.1rem 0;
+  border-bottom: 1px solid #d4d4d4;
+}
 .line {
   position: relative;
   height: 1px;
   width: 100%;
   margin: 36px 0;
-  background-color: #d4d4d4;
+  background-color: #d4d4d4 !important;
+  z-index: 1;
 }
-.line::before {
+/* .line::before {
   content: "Or";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
-  color: #8b8b8b;
+  background: transparent;
+  color: #d4d4d4;
   padding: 0 15px;
-}
+  z-index: 2;
+} */
 .media-options a {
   display: flex;
   align-items: center;
@@ -243,5 +299,12 @@ a.google span {
     padding: 20px 10px;
   }
 }
+.err-form {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.success-pw {
+  font-size: 14px;
+  margin-top: 5px;
+}
 </style>
-../helpers/firebaseConfig

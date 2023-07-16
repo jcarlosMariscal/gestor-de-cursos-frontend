@@ -30,21 +30,8 @@
             />
             <i class="bx bx-hide eye-icon" @click="eyeIcon"></i>
           </div>
-          <div class="field input-field">
-            <input
-              type="password"
-              placeholder="Confirm password"
-              class="password"
-              v-model="password2"
-              @input="validatePassword"
-            />
-            <i class="bx bx-hide eye-icon" @click="eyeIcon"></i>
-          </div>
-          <div class="field button-field err-form" v-if="errForm">
-            <p>{{ errMsg }}</p>
-          </div>
-          <div class="field button-field success-pw" v-if="successpw">
-            <p>{{ successpwMsg }}</p>
+          <div class="alert alert-danger err-form" v-if="errForm" role="alert">
+            {{ errMsg }}
           </div>
           <div class="field button-field">
             <button @click="registerUser">Registrarse</button>
@@ -82,11 +69,8 @@ import { alertaForm } from "../helpers/funciones";
 
 const email = ref("");
 const password = ref("");
-const password2 = ref("");
 const errForm = ref(false);
-const successpw = ref(false);
 const errMsg = ref("");
-const successpwMsg = ref("");
 const darkmode = ref(false);
 const router = useRouter(); // get a reference to our vue router
 
@@ -110,16 +94,6 @@ const eyeIcon = (e) => {
   passwordInput.type = "password";
   e.target.classList.replace("bx-show", "bx-hide");
 };
-const validatePassword = () => {
-  // console.log();
-  if (password.value !== password2.value) {
-    successpw.value = true;
-    successpwMsg.value = "La contraseña no coincide";
-    return;
-  }
-  successpw.value = false;
-  successpwMsg.value = "La contraseña coincide";
-};
 
 const registerUser = (e) => {
   e.preventDefault();
@@ -132,8 +106,6 @@ const registerUser = (e) => {
 
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((response) => {
-      // Usuario registrado exitosamente
-      // console.log(response);
       alertaForm(
         "Usuario registrado. Inicie sesión a continuación",
         "success",
@@ -142,24 +114,18 @@ const registerUser = (e) => {
       setTimeout(() => router.push("/login"), 3000);
     })
     .catch((error) => {
-      // Manejar errores de registro
-      console.error(
-        "Error al registrar el usuario:",
-        error.code,
-        error.message
-      );
-      // Mostrar un mensaje de error específico al usuario según el tipo de error
-      if (error.code === "auth/weak-password") {
-        errForm.value = true;
-        errMsg.value =
-          "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.";
-      } else if (error.code === "auth/invalid-email") {
-        errForm.value = true;
-        errMsg.value = "El correo electrónico proporcionado no es válido.";
-      } else {
-        errForm.value = true;
-        errMsg.value = "Ha ocurrido un error durante el registro.";
-      }
+      const errorMessages = {
+        "auth/weak-password":
+          "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.",
+        "auth/invalid-email":
+          "El correo electrónico proporcionado no es válido.",
+        "auth/email-already-in-use":
+          "Ya hay un usuario registrado con ese correo",
+      };
+      errMsg.value =
+        errorMessages[error.code] ||
+        "Ha ocurrido un error durante el registro.";
+      errForm.value = true;
     });
 };
 </script>
@@ -329,9 +295,11 @@ a.google span {
   }
 }
 .err-form {
-  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 .success-pw {
-  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 </style>

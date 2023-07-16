@@ -59,7 +59,8 @@ export function alertaForm(title, icon, timer = 2000) {
     position: "top-right",
     customClass: { popup: "animated zoonIn" },
     icon: icon,
-    title: title,
+    toast: true,
+    text: title,
     showConfirmButton: false,
     timer: timer,
   });
