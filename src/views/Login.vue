@@ -53,7 +53,7 @@
       </div>
       <div class="line-custom theme-text">O</div>
       <div class="media-options">
-        <a href="#" class="field facebook">
+        <a href="#" class="field facebook" @click.prevent="withGoogle">
           <!-- <i class="bx bxl-facebook facebook-icon"></i> -->
           <i class="bx bxl-google facebook-icon"></i>
           <span>Iniciar sesión con Google</span>
@@ -65,7 +65,12 @@
 
 <script setup>
 import { auth } from "../helpers/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { alertaForm } from "../helpers/funciones";
@@ -132,6 +137,24 @@ const registerUser = (e) => {
       //   "Ha ocurrido un error durante el registro.";
       // errForm.value = true;
     });
+};
+const withGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    console.log(user);
+    router.push("/students");
+  } catch (error) {
+    console.log(error);
+    // const errorCode = error.code;
+    // const errorMessage = error.message;
+    // const email = error.customData.email;
+    // const credential = GoogleAuthProvider.credentialFromError(error);
+  }
 };
 </script>
 

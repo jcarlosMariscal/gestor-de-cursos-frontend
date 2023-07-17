@@ -85,6 +85,7 @@
 import { onMounted, ref, watchEffect } from "vue";
 import { auth } from "../helpers/firebaseConfig";
 import { useRouter } from "vue-router";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const router = useRouter();
 const isLoggedIn = ref(true);
@@ -141,17 +142,25 @@ const changeMode = () => {
   }
   toggle();
 };
-const cerrar = () => {
-  auth
-    .signOut()
-    .then(() => {
-      console.log("Usuario cerró sesión.");
-      router.push("/");
-    })
-    .catch((error) => {
-      // Manejar errores de cierre de sesión
-      console.error(error);
-    });
+const cerrar = async () => {
+  try {
+    await auth.signOut();
+    // El usuario cerró sesión en Firebase, ahora verifica si también inició sesión con Google
+    const provider = new GoogleAuthProvider();
+    if (
+      auth.currentUser &&
+      auth.currentUser.providerData.some(
+        (data) => data.providerId === provider.providerId
+      )
+    ) {
+      // Si el usuario inició sesión con Google, cierra la sesión específica de Google
+      await auth.currentUser.unlink(provider.providerId);
+    }
+    // Redireccionar a la página de inicio de sesión u otra vista
+    router.push("/login");
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 <style scoped>
