@@ -1,6 +1,10 @@
 <template>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar">
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-primary"
+    id="navbar"
+    style="position: sticky; top: 0"
+  >
     <!-- <a class="navbar-brand" href="#">GESTIÓN ACADÉMIA</a> -->
     <!-- Container wrapper -->
     <div class="container-fluid">
@@ -19,14 +23,22 @@
           :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
         >
           <!-- Navbar brand -->
-          <a class="navbar-brand mt-2 mt-lg-0" href="#">
+          <router-link class="navbar-brand mt-2 mt-lg-0" to="/">
             <img
-              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-              height="15"
+              v-if="darkmode"
+              src="../assets/img/logo-acade.png"
+              height="25"
               alt="MDB Logo"
               loading="lazy"
             />
-          </a>
+            <img
+              v-else
+              src="../assets/img/logo-acade-light.png"
+              height="25"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </router-link>
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -67,7 +79,7 @@
         <!-- <a class="text-reset me-3" href="#">
           <i class="fas fa-shopping-cart"></i>
         </a> -->
-        <div>
+        <div class="checkbox-theme">
           <input
             type="checkbox"
             id="toggle_checkbox"
@@ -90,7 +102,7 @@
           </div>
         </div>
         <!-- Avatar -->
-        <div class="dropdown dropdown-custom">
+        <div class="dropdown dropdown-custom" v-if="isLoggedIn">
           <a
             class="dropdown-toggle d-flex align-items-center hidden-arrow"
             href="#"
@@ -122,6 +134,11 @@
             </li>
           </ul>
         </div>
+        <div v-else>
+          <router-link to="/login" class="btn-custom nav-link"
+            >Iniciar sesión</router-link
+          >
+        </div>
       </div>
       <!-- Right elements -->
     </div>
@@ -135,14 +152,14 @@
           </svg> -->
 </template>
 <script setup>
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, ref } from "vue";
 import { auth } from "../helpers/firebaseConfig";
 import { useRouter } from "vue-router";
 import { GoogleAuthProvider } from "firebase/auth";
 import { alertaForm } from "../helpers/funciones";
 
 const router = useRouter();
-const isLoggedIn = ref(true);
+const isLoggedIn = ref(false);
 const navbarMobile = ref(false);
 let darkmode = ref(false);
 // console.log(darkmode.value);
@@ -187,7 +204,11 @@ const toggle = () => {
     });
   }
 };
-onMounted(() => toggle());
+onMounted(() => {
+  toggle();
+  console.log(auth);
+  if (auth.currentUser) isLoggedIn.value = true;
+});
 const changeMode = () => {
   const theme = localStorage.getItem("theme");
   if (theme === "light") {
@@ -241,6 +262,9 @@ const cerrar = async () => {
 };
 </script>
 <style scoped>
+.checkbox-theme {
+  margin-right: -1.5rem;
+}
 .container-custom {
   display: flex;
   justify-content: center;
@@ -270,7 +294,7 @@ input + label {
   z-index: 999 !important;
 }
 label i {
-  font-size: 28px !important;
+  font-size: 24px !important;
   color: #1a7e91;
 }
 label .bx-moon {

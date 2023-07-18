@@ -3,10 +3,12 @@
   <div class="container-fluid">
     <router-view />
   </div>
+  <Footer />
 </template>
 
 <script setup>
 import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <style>
@@ -24,9 +26,12 @@ body.mode-light {
   );
   background-repeat: no-repeat;
 }
-
-.navbar.mode-light {
-  background-color: #d7ebef !important;
+.navbar {
+  z-index: 999;
+}
+.navbar.mode-light,
+.footer.mode-light {
+  background-color: rgba(215, 235, 239, 0.95) !important;
   box-shadow: rgba(26, 125, 145, 0.16) 0px 2px 5px,
     rgba(26, 125, 145, 0.23) 0px 2px 5px;
 }
@@ -64,8 +69,9 @@ body.mode-dark {
     #2f093e 100%
   );
 }
-.navbar.mode-dark {
-  background-color: rgba(16, 78, 90, 0.8) !important;
+.navbar.mode-dark,
+.footer.mode-dark {
+  background-color: rgba(16, 78, 90, 0.96) !important;
   box-shadow: rgba(255, 255, 255, 0.16) 0px 2px 3px,
     rgba(255, 255, 255, 0.23) 0px 2px 3px;
 }
@@ -109,5 +115,9 @@ body.mode-dark {
 }
 .theme-text.mode-dark {
   color: #dbe1d8 !important;
+}
+
+.btn-custom {
+  text-decoration: none;
 }
 </style>
