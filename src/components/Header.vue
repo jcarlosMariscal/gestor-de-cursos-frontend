@@ -1,94 +1,149 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark bg-primary mode-light"
-    id="navbar"
-  >
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar">
+    <!-- <a class="navbar-brand" href="#">GESTIÓN ACADÉMIA</a> -->
+    <!-- Container wrapper -->
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">GESTIÓN ACADÉMIA</a>
-      <div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+      <button class="navbar-toggler" type="button" @click="menuHamburger">
+        <i class="bx bx-menu" id="menu-toggle"></i>
+      </button>
+
+      <!-- Collapsible wrapper -->
+      <div
+        class="collapse navbar-collapse collapse-custom"
+        :class="{ show: navbarMobile }"
+        id="navbarSupportedContent"
+      >
+        <div
+          class="content-custom"
+          :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
         >
-          <!-- <span class="navbar-toggler-icon"></span> -->
-          <svg viewBox="0 0 100 80" width="35" height="35" fill="#000">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+              height="15"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">Inicio</router-link>
+            </li>
+            <!-- <li class="nav-item">
+            <button @click="cerrar">Logout</button>
+          </li> -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Estudiantes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link to="/students" class="dropdown-item"
+                  >Listar Estudiantes</router-link
+                >
+                <router-link to="/form-student" class="dropdown-item"
+                  >Registrar nuevo</router-link
+                >
+              </ul>
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+      </div>
+      <!-- Collapsible wrapper -->
+
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+        <!-- Icon -->
+        <!-- <a class="text-reset me-3" href="#">
+          <i class="fas fa-shopping-cart"></i>
+        </a> -->
+        <div>
+          <input
+            type="checkbox"
+            id="toggle_checkbox"
+            v-model="darkmode"
+            @click="changeMode"
+          />
+          <div class="container-custom">
+            <input
+              id="checkbox"
+              type="checkbox"
+              v-model="darkmode"
+              @click="changeMode"
+            />
+            <label for="checkbox"
+              ><i
+                class="bx"
+                :class="{ 'bx-sun': !darkmode, 'bx-moon': darkmode }"
+              ></i
+            ></label>
+          </div>
+        </div>
+        <!-- Avatar -->
+        <div class="dropdown dropdown-custom">
+          <a
+            class="dropdown-toggle d-flex align-items-center hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuAvatar"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+              class="rounded-circle"
+              height="25"
+              alt="Black and White Portrait of a Man"
+              loading="lazy"
+            />
+          </a>
+          <ul
+            class="dropdown-menu dropdown-avatar-custom"
+            aria-labelledby="navbarDropdownMenuAvatar"
+          >
+            <li>
+              <a class="dropdown-item" href="#">My profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  <!-- <svg viewBox="0 0 100 80" width="35" height="35" fill="#000">
             <rect width="100" height="20"></rect>
             <rect y="30" width="100" height="20"></rect>
             <rect y="60" width="100" height="20"></rect>
-          </svg>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link to="/" class="nav-link">Inicio</router-link>
-          </li>
-          <li class="nav-item">
-            <button @click="cerrar">Logout</button>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Estudiantes
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link to="/students" class="dropdown-item"
-                >Listar Estudiantes</router-link
-              >
-              <router-link to="/form-student" class="dropdown-item"
-                >Registrar nuevo</router-link
-              >
-            </ul>
-          </li>
-          <li class="nav-item">
-            <div>
-              <input
-                type="checkbox"
-                id="toggle_checkbox"
-                v-model="darkmode"
-                @click="changeMode"
-              />
-              <div class="container-custom">
-                <input
-                  id="checkbox"
-                  type="checkbox"
-                  v-model="darkmode"
-                  @click="changeMode"
-                />
-                <label for="checkbox"
-                  ><i
-                    class="bx"
-                    :class="{ 'bx-sun': !darkmode, 'bx-moon': darkmode }"
-                  ></i
-                ></label>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- :class="{ darkmode: darkmode }" -->
-    </div>
-  </nav>
+          </svg> -->
 </template>
 <script setup>
 import { onMounted, ref, watchEffect } from "vue";
 import { auth } from "../helpers/firebaseConfig";
 import { useRouter } from "vue-router";
 import { GoogleAuthProvider } from "firebase/auth";
+import { alertaForm } from "../helpers/funciones";
 
 const router = useRouter();
 const isLoggedIn = ref(true);
+const navbarMobile = ref(false);
 let darkmode = ref(false);
 // console.log(darkmode.value);
 const toggle = () => {
@@ -142,6 +197,22 @@ const changeMode = () => {
   }
   toggle();
 };
+const menuHamburger = () => {
+  navbarMobile.value = !navbarMobile.value;
+  const menu = document.getElementById("menu-toggle");
+  if (menu.classList.contains("bx-menu")) {
+    menu.classList.remove("bx-menu");
+    menu.classList.add("bx-x");
+  } else {
+    menu.classList.add("bx-menu");
+    menu.classList.remove("bx-x");
+  }
+  if (navbarMobile.value) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+};
 const cerrar = async () => {
   try {
     await auth.signOut();
@@ -157,9 +228,15 @@ const cerrar = async () => {
       await auth.currentUser.unlink(provider.providerId);
     }
     // Redireccionar a la página de inicio de sesión u otra vista
-    router.push("/login");
+    alertaForm("Sesión cerrada", "success", 3000);
+    router.push("/");
   } catch (error) {
     console.error(error);
+    alertaForm(
+      "Ha ocurrido un error al intentar cerrar sesión.",
+      "error",
+      3000
+    );
   }
 };
 </script>
@@ -198,5 +275,69 @@ label i {
 }
 label .bx-moon {
   color: white;
+}
+
+.content-custom {
+  display: flex;
+}
+
+@media screen and (min-width: 991px) {
+}
+.dropdown-custom {
+  position: relative;
+}
+.dropdown-avatar-custom {
+  position: absolute !important;
+  top: 60px !important; /* Ajusta la posición vertical según el tamaño del navbar */
+  left: -125px !important;
+  /* width: 20%; */
+}
+
+@media screen and (max-width: 991px) {
+  .container-fluid {
+    position: relative;
+  }
+  .collapse-custom {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    display: block !important;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 53px);
+    transform: translateX(-100%);
+    transition: all 0.5s ease-in-out;
+  }
+  .content-custom {
+    width: 30vw;
+    height: 100%;
+    flex-direction: column;
+  }
+  .content-custom.mode-light {
+    background-color: rgba(215, 235, 239, 0.8) !important;
+  }
+  .content-custom.mode-dark {
+    /* color: rgb(3, 11, 70); */
+    background-color: rgba(3, 11, 70, 0.8) !important;
+  }
+  .collapse-custom.show {
+    z-index: 999;
+    transform: translateX(0);
+    transition: all 0.5s ease-in-out;
+  }
+  .collapse-custom::after {
+    width: 100px !important;
+    height: 100px !important;
+    background: green !important;
+  }
+  .navbar-nav {
+    /* background: aqua !important; */
+    display: block !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .collapse-custom {
+    width: 100vw;
+  }
 }
 </style>

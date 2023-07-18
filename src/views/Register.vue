@@ -65,7 +65,6 @@ import { auth } from "../helpers/firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  getAuth,
   signInWithPopup,
 } from "firebase/auth";
 import { onMounted, ref } from "vue";
@@ -143,8 +142,14 @@ const withGoogle = async () => {
     const user = result.user;
     console.log(user);
     router.push("/students");
+    alertaForm("Sesión iniciada con Google", "success", 3000);
   } catch (error) {
     console.log(error);
+    alertaForm(
+      "Ha ocurrido un error al intentar iniciar sesión.",
+      "error",
+      3000
+    );
     // const errorCode = error.code;
     // const errorMessage = error.message;
     // const email = error.customData.email;

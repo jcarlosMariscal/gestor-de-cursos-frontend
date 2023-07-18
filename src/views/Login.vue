@@ -37,7 +37,7 @@
             <a href="#" class="forgot-pass">¿Olvídaste tu contraseña?</a>
           </div>
           <div class="field button-field">
-            <button @click="registerUser">Iniciar sesión</button>
+            <button @click="loginUser">Iniciar sesión</button>
           </div>
         </form>
         <div class="form-link">
@@ -68,7 +68,6 @@ import { auth } from "../helpers/firebaseConfig";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  getAuth,
   signInWithPopup,
 } from "firebase/auth";
 import { onMounted, ref } from "vue";
@@ -103,7 +102,7 @@ const eyeIcon = (e) => {
   e.target.classList.replace("bx-show", "bx-hide");
 };
 
-const registerUser = (e) => {
+const loginUser = (e) => {
   e.preventDefault();
   if (!email.value || !password.value) {
     errForm.value = true;
@@ -114,28 +113,21 @@ const registerUser = (e) => {
 
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((response) => {
-      // alertaForm(
-      //   "Usuario registrado. Inicie sesión a continuación",
-      //   "success",
-      //   3000
-      // );
-      console.log("Successfully logged in!");
       router.push("/students"); // redirect to the feed
+      alertaForm("Sesión iniciada", "success", 3000);
     })
     .catch((error) => {
       console.log(error);
-      // const errorMessages = {
-      //   "auth/weak-password":
-      //     "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.",
-      //   "auth/invalid-email":
-      //     "El correo electrónico proporcionado no es válido.",
-      //   "auth/email-already-in-use":
-      //     "Ya hay un usuario registrado con ese correo",
-      // };
-      // errMsg.value =
-      //   errorMessages[error.code] ||
-      //   "Ha ocurrido un error durante el registro.";
-      // errForm.value = true;
+      const errorMessages = {
+        "auth/user-not-found": "No se encontró ninguna cuenta con el correo.",
+        "auth/invalid-email":
+          "El correo electrónico proporcionado no es válido.",
+        "auth/wrong-password": "Contraseña incorrecta",
+      };
+      errMsg.value =
+        errorMessages[error.code] ||
+        "Verifique que su correo y contraseña sean correctos.";
+      errForm.value = true;
     });
 };
 const withGoogle = async () => {
@@ -148,8 +140,14 @@ const withGoogle = async () => {
     const user = result.user;
     console.log(user);
     router.push("/students");
+    alertaForm("Sesión iniciada con Google", "success", 3000);
   } catch (error) {
     console.log(error);
+    alertaForm(
+      "Ha ocurrido un error al intentar iniciar sesión.",
+      "error",
+      3000
+    );
     // const errorCode = error.code;
     // const errorMessage = error.message;
     // const email = error.customData.email;
