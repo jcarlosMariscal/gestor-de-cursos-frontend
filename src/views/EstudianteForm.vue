@@ -88,7 +88,7 @@
 
 <script lang="js">
 import { mostrarAlerta, enviarSolicitud } from "../helpers/funciones";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
 
@@ -104,10 +104,12 @@ export default {
       cargando: false,
       formEdit: false,
       darkmode: false,
+      router: null,
     };
   },
   mounted() {
     const route = useRoute();
+    this.router = useRouter();
     this.id = route.params.id;
     if (this.id) this.formEdit = true;
     if (this.formEdit) {
@@ -143,10 +145,11 @@ export default {
       } else {
         let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim() }
         if (this.formEdit) {
-          enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado')
+          enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado', "/students")
         } else {
-enviarSolicitud('POST',parametros, this.url, 'Estudiante registrado')
+enviarSolicitud('POST',parametros, this.url, 'Estudiante registrado', "/students")
         }
+        setTimeout(() => this.router.push("/students"), 200);
       }
     },
     previsualizarFoto(e) {

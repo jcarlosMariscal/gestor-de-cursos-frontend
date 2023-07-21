@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <div class="d-grid col-6 mx-auto mb-3">
-            <router-link :to="{ path: '/' }" class="btn btn-info"
+            <router-link :to="{ path: '/students' }" class="btn btn-info"
               ><i class="fa-solid fa-arrow-left"></i> Regresar a la
               lista</router-link
             >
@@ -89,29 +89,6 @@ export default {
         this.apellido = res.data.data.apellido;
         this.foto = res.data.data.foto;
 })
-    },
-    actualizar(e) {
-      e.preventDefault();
-      let miFoto = document.getElementById("fotoimg");
-      this.foto = miFoto.src;
-
-      if (this.nombre.trim() == "") {
-        mostrarAlerta("Ingrese un nombre", "warning", "nombre")
-      }else if (this.apellido.trim() == "") {
-        mostrarAlerta("Ingrese un apellido", "warning", "apellido")
-      } else {
-        let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim() }
-        enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado')
-      }
-    },
-    previsualizarFoto(e) {
-      let reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload =  () => {
-        let miFoto = document.getElementById("fotoimg");
-        miFoto.src = reader.result;
-        this.foto = miFoto.src;
-      };
     },
   },
 };
