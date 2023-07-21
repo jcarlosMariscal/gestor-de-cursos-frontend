@@ -50,7 +50,7 @@
               ></td>
               <td>
                 <router-link
-                  :to="{ path: 'viewE/' + est.id }"
+                  :to="{ path: 'view-student/' + est.id }"
                   class="btn btn-primary"
                   ><i class="fa-solid fa-eye"></i
                 ></router-link>

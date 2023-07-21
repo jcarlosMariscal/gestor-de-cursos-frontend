@@ -7,6 +7,9 @@ import EstudianteListar from "../views/EstudianteListar.vue";
 // import EstudianteNew from "../views/EstudianteNew.vue";
 import EstudianteForm from "../views/EstudianteForm.vue";
 import EstudianteView from "../views/EstudianteView.vue";
+import CursoListar from "@/views/CursoListar.vue";
+import CursoForm from "../views/CursoForm.vue";
+import CursoView from "../views/CursoView.vue";
 
 const routes = [
   {
@@ -37,9 +40,27 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/viewE/:id",
-    name: "viewE",
+    path: "/view-student/:id",
+    name: "view-student",
     component: EstudianteView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/courses",
+    name: "courses",
+    component: CursoListar,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/form-course/:id?",
+    name: "form-course",
+    component: CursoForm,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/view-course/:id",
+    name: "view-course",
+    component: CursoView,
     meta: { requiresAuth: true },
   },
 ];

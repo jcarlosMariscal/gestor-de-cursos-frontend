@@ -67,6 +67,26 @@
                 >
               </ul>
             </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Cursos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link to="/courses" class="dropdown-item"
+                  >Listar Cursos</router-link
+                >
+                <router-link to="/form-course" class="dropdown-item"
+                  >Registrar nuevo</router-link
+                >
+              </ul>
+            </li>
           </ul>
           <!-- Left links -->
         </div>
@@ -124,17 +144,17 @@
             aria-labelledby="navbarDropdownMenuAvatar"
           >
             <li>
-              <a class="dropdown-item" href="#">My profile</a>
+              <a class="dropdown-item" href="#">Mi perfil</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">Settings</a>
+              <a class="dropdown-item" href="#">Configuración</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" @click.prevent="cerrar">Cerrar sesión</a>
             </li>
           </ul>
         </div>
-        <div v-else>
+        <div v-if="!isLoggedIn">
           <router-link to="/login" class="btn-custom nav-link"
             >Iniciar sesión</router-link
           >
@@ -159,7 +179,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { alertaForm } from "../helpers/funciones";
 
 const router = useRouter();
-const isLoggedIn = ref(false);
+const isLoggedIn = ref(true);
 const navbarMobile = ref(false);
 let darkmode = ref(false);
 // console.log(darkmode.value);
@@ -205,9 +225,8 @@ const toggle = () => {
   }
 };
 onMounted(() => {
+  if (!auth.currentUser) isLoggedIn.value = false;
   toggle();
-  console.log(auth);
-  if (auth.currentUser) isLoggedIn.value = true;
 });
 const changeMode = () => {
   const theme = localStorage.getItem("theme");
