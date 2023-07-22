@@ -38,7 +38,7 @@
                 <img
                   alt=""
                   v-else
-                  style="height: 3rem"
+                  style="height: 3rem !important"
                   src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-256.png"
                   class="img-thumbnail"
                 />
@@ -144,4 +144,3 @@ export default {
   border-bottom-color: transparent;
 }
 </style>
-../helpers/funciones

@@ -10,6 +10,7 @@ import EstudianteView from "../views/EstudianteView.vue";
 import CursoListar from "@/views/CursoListar.vue";
 import CursoForm from "../views/CursoForm.vue";
 import CursoView from "../views/CursoView.vue";
+import CursoEstudianteForm from "../views/CursoEstudianteForm.vue";
 
 const routes = [
   {
@@ -61,6 +62,12 @@ const routes = [
     path: "/view-course/:id",
     name: "view-course",
     component: CursoView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/select-courses/:id",
+    name: "select-courses",
+    component: CursoEstudianteForm,
     meta: { requiresAuth: true },
   },
 ];

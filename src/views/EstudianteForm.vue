@@ -87,7 +87,7 @@
 </template>
 
 <script lang="js">
-import { mostrarAlerta, enviarSolicitud } from "../helpers/funciones";
+import { mostrarAlerta, enviarSolicitud, redirectCustomSelect } from "../helpers/funciones";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
@@ -145,11 +145,15 @@ export default {
       } else {
         let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim() }
         if (this.formEdit) {
-          enviarSolicitud('PUT',parametros, this.url, 'Estudiante actualizado', "/students")
+          enviarSolicitud('PUT', parametros, this.url, 'Estudiante actualizado');
+          setTimeout(() => this.router.push("/students"), 200);
         } else {
-enviarSolicitud('POST',parametros, this.url, 'Estudiante registrado', "/students")
+          enviarSolicitud('POST', parametros, this.url, 'Estudiante registrado', false).then((res) => {
+            redirectCustomSelect(
+          "Estudiante registrado",
+              `¿Desea asignar cursos a este estudiante?`, "/students", `/select-courses/${res.data.id}`);
+          });
         }
-        setTimeout(() => this.router.push("/students"), 200);
       }
     },
     previsualizarFoto(e) {
