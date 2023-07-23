@@ -141,7 +141,7 @@ const withGoogle = async () => {
     const token = credential.accessToken;
     const user = result.user;
     console.log(user);
-    router.push("/students");
+    router.push("/dashboard");
     alertaForm("Sesión iniciada con Google", "success", 3000);
   } catch (error) {
     console.log(error);

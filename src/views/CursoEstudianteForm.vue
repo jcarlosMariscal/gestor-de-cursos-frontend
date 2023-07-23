@@ -9,15 +9,21 @@
           Selecciona los cursos
         </div>
         <div class="card-body">
-          <section>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course1" />
-              <label for="course1">
+          <div v-if="cargando">
+            <div colspan="6" class="text-center">
+              <span class="loader" :class="{ 'mode-dark': darkmode }"></span>
+              <p>Cargando cursos ...</p>
+            </div>
+          </div>
+          <section v-else>
+            <div class="tile" v-for="(cur, i) in cursos" :key="cur.id">
+              <input type="checkbox" name="sports" :id="'course' + cur.id" />
+              <label :for="'course' + cur.id">
                 <i class="fas fa-search"></i>
-                <h6>Investigación Ac.</h6>
+                <h6>{{ cur.nombre }}</h6>
               </label>
             </div>
-            <div class="tile">
+            <!-- <div class="tile">
               <input type="checkbox" name="sports" id="course2" />
               <label for="course2">
                 <i class="fas fa-shuttle-space"></i>
@@ -58,7 +64,7 @@
                 <i class="fas fa-calculator"></i>
                 <h6>Matemáticas</h6>
               </label>
-            </div>
+            </div> -->
           </section>
         </div>
       </div>
@@ -77,11 +83,12 @@ export default {
   data() {
     return {
       id: false,
-      url: "http://academicobackend.test/api/v1/estudiantes",
+      url: "http://academicobackend.test/api/v1/cursos",
       cargando: false,
       formEdit: false,
       darkmode: false,
       router: null,
+      cursos: []
     };
   },
   mounted() {
@@ -93,9 +100,19 @@ export default {
     } else {
       this.darkmode = true;
     }
-    console.log("hola");
+    this.getCursos();
   },
   methods: {
+    getCursos() {
+      this.cargando = true;
+      axios
+        .get("http://academicobackend.test/api/v1/cursos")
+        .then((res) => {
+          console.log(res);
+          this.cursos = res.data;
+          this.cargando = false;
+        });
+    },
     guardar(e) {
       e.preventDefault();
       let miFoto = document.getElementById("fotoimg");

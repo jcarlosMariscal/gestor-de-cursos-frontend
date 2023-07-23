@@ -69,7 +69,7 @@ export default {
     return { cursos: null, cargando: false, darkmode: false };
   },
   mounted() {
-    this.get1Cursos();
+    this.getCursos();
     const theme = localStorage.getItem("theme");
     if (theme === "light") {
       this.darkmode = false;
@@ -78,7 +78,7 @@ export default {
     }
   },
   methods: {
-    get1Cursos() {
+    getCursos() {
       this.cargando = true;
       axios.get("http://academicobackend.test/api/v1/cursos").then((res) => {
         console.log(res);

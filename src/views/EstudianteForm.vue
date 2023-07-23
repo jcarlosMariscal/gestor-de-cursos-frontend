@@ -10,11 +10,13 @@
         </div>
         <div class="card-body">
           <form @submit="guardar">
-            <div class="d-grid col-6 mx-auto mb-3">
+            <div
+              class="d-grid col-6 mx-auto mb-3 d-flex justify-content-center"
+            >
               <img
                 alt=""
                 v-if="foto"
-                style="height: 18rem"
+                style="height: 10rem"
                 :src="foto"
                 id="fotoimg"
                 class="img-thumbnail"
@@ -23,49 +25,111 @@
                 alt=""
                 v-else
                 id="fotoimg"
-                style="height: 18rem"
+                style="height: 10rem"
                 src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-256.png"
                 class="img-thumbnail"
               />
             </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text"
-                ><i class="fa-solid fa-user"></i
-              ></span>
-              <input
-                type="text"
-                class="form-control"
-                v-model="nombre"
-                id="nombre"
-                placeholder="Ingrese su nombre"
-                required
-                maxlength="50"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text"
-                ><i class="fa-solid fa-user"></i
-              ></span>
-              <input
-                type="text"
-                class="form-control"
-                v-model="apellido"
-                id="apellido"
-                placeholder="Ingrese su apellido"
-                required
-                maxlength="50"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text"
-                ><i class="fa-solid fa-gift"></i
-              ></span>
-              <input
-                type="file"
-                class="form-control"
-                accept="image/png, image/jpg, image/gift"
-                @change="previsualizarFoto"
-              />
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-user"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="nombre"
+                    id="nombre"
+                    placeholder="Ingrese su nombre"
+                    required
+                    maxlength="50"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-user"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="apellido"
+                    id="apellido"
+                    placeholder="Ingrese su apellido"
+                    required
+                    maxlength="50"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-phone"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="telefono"
+                    id="telefono"
+                    placeholder="Ingrese su telefono"
+                    required
+                    maxlength="50"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-envelope"></i
+                  ></span>
+                  <input
+                    type="email"
+                    class="form-control"
+                    v-model="correo"
+                    id="correo"
+                    placeholder="Ingrese su correo"
+                    required
+                    maxlength="50"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-hand-pointer"></i
+                  ></span>
+                  <select name="" id="" class="form-control">
+                    <option value="">Seleccione una generación</option>
+                    <option value="Ho">H</option>
+                    <option value="Ho">H</option>
+                    <option value="Ho">H</option>
+                  </select>
+                  <!-- <input
+                    type="email"
+                    class="form-control"
+                    v-model="correo"
+                    id="correo"
+                    placeholder="Ingrese su correo"
+                    required
+                    maxlength="50"
+                  /> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-image"></i
+                  ></span>
+                  <input
+                    type="file"
+                    class="form-control"
+                    accept="image/png, image/jpg, image/gift"
+                    @change="previsualizarFoto"
+                  />
+                </div>
+              </div>
             </div>
             <div class="d-grid col-6 mx-auto mb-3">
               <button class="btn btn-warning">
@@ -99,6 +163,8 @@ export default {
       id: false,
       nombre: "",
       apellido: "",
+      correo: "",
+      telefono: "",
       foto: "",
       url: "http://academicobackend.test/api/v1/estudiantes",
       cargando: false,

@@ -3,6 +3,7 @@ import { auth } from "../helpers/firebaseConfig";
 import Inicio from "../views/Inicio.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Dashboard from "../views/Dashboard.vue";
 import EstudianteListar from "../views/EstudianteListar.vue";
 // import EstudianteNew from "../views/EstudianteNew.vue";
 import EstudianteForm from "../views/EstudianteForm.vue";
@@ -27,6 +28,12 @@ const routes = [
     path: "/register",
     name: "register",
     component: Register,
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
+    meta: { requiresAuth: true },
   },
   {
     path: "/students",
