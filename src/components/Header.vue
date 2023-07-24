@@ -44,6 +44,11 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link">Inicio</router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/dashboard" class="nav-link"
+                >Dashboard</router-link
+              >
+            </li>
             <!-- <li class="nav-item">
             <button @click="cerrar">Logout</button>
           </li> -->

@@ -107,7 +107,8 @@ body.mode-dark {
   background-color: #052235 !important;
   color: #fff !important;
 }
-.bg-content.mode-dark thead tr th {
+.bg-content.mode-dark thead tr th,
+.bg-content.mode-dark tbody tr td {
   color: #fff !important;
 }
 .bg-content2.mode-dark {

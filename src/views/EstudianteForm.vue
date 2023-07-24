@@ -103,21 +103,20 @@
                   <span class="input-group-text"
                     ><i class="fa-solid fa-hand-pointer"></i
                   ></span>
-                  <select name="" id="" class="form-control">
-                    <option value="">Seleccione una generación</option>
-                    <option value="Ho">H</option>
-                    <option value="Ho">H</option>
-                    <option value="Ho">H</option>
-                  </select>
-                  <!-- <input
-                    type="email"
+                  <select
                     class="form-control"
-                    v-model="correo"
-                    id="correo"
-                    placeholder="Ingrese su correo"
+                    v-model="select_generacion"
                     required
-                    maxlength="50"
-                  /> -->
+                  >
+                    <option value="">Seleccione una generación</option>
+                    <option
+                      :value="gen.id"
+                      v-for="gen in generaciones"
+                      :key="gen.id"
+                    >
+                      {{ gen.nombre }}
+                    </option>
+                  </select>
                 </div>
               </div>
               <div class="col-lg-6 col-md-12">
@@ -169,11 +168,13 @@ export default {
       correo: "",
       telefono: "",
       foto: "",
+      select_generacion: "",
       url: "http://academicobackend.test/api/v1/estudiantes",
       cargando: false,
       formEdit: false,
       darkmode: false,
       router: null,
+      generaciones: []
     };
   },
   mounted() {
@@ -186,6 +187,7 @@ export default {
       this.getEstudiante();
 
     }
+    this.getGeneraciones();
     const theme = localStorage.getItem("theme");
     if (theme === "light") {
       this.darkmode = false;
@@ -200,7 +202,16 @@ export default {
         this.nombre = res.data.data.nombre;
         this.apellido = res.data.data.apellido;
         this.foto = res.data.data.foto;
+        this.correo = res.data.data.email;
+        this.telefono = res.data.data.telefono;
+        this.select_generacion = res.data.data.generacion_id;
 })
+    },
+    getGeneraciones() {
+      axios.get("http://academicobackend.test/api/v1/generaciones").then(res => {
+        this.generaciones = res.data;
+        console.log(res);
+      })
     },
     guardar(e) {
       e.preventDefault();
@@ -212,7 +223,8 @@ export default {
       }else if (this.apellido.trim() == "") {
         mostrarAlerta("Ingrese un apellido", "warning", "apellido")
       } else {
-        let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim() }
+        let parametros = { nombre: this.nombre.trim(), apellido: this.apellido.trim(), foto: this.foto.trim(), telefono: this.telefono, email: this.correo, generacion_id: this.select_generacion }
+        console.log(parametros);
         if (this.formEdit) {
           enviarSolicitud('PUT', parametros, this.url, 'Estudiante actualizado');
           setTimeout(() => this.router.push("/students"), 200);
