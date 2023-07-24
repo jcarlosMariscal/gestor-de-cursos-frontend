@@ -5,7 +5,10 @@
         class="card bg-content"
         :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
       >
-        <div class="card-header bg-dark text-white text-center">
+        <div
+          class="card-header bg-dark text-white text-center bg-content2"
+          :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+        >
           {{ formEdit ? "Editar Estudiante" : "Registrar estudiante" }}
         </div>
         <div class="card-body">

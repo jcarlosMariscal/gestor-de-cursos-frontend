@@ -190,20 +190,28 @@ const toggle = () => {
   // const table = document.getElementById("mytable");
   // if (table) console.log(table);
   const elements = document.querySelectorAll(".element");
-  const bg2 = document.querySelectorAll(".bg-content");
+  const bg = document.querySelectorAll(".bg-content");
+  const bg2 = document.querySelectorAll(".bg-content2");
+  const bg3 = document.querySelectorAll(".bg-content3");
   const theme_text = document.querySelectorAll(".theme-text");
   console.log(theme);
 
   if (theme === "light") {
     darkmode.value = false;
-    navbar.classList.add("mode-light");
     body.classList.add("mode-light");
+    navbar.classList.add("mode-light");
     navbar.classList.remove("mode-dark");
     body.classList.remove("mode-dark");
     elements.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
+    bg.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
     bg2.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    bg3.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
     theme_text.forEach((el) => {
@@ -216,7 +224,13 @@ const toggle = () => {
     elements.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
+    bg.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
     bg2.forEach((el) => {
+      el.classList.toggle("mode-dark");
+    });
+    bg3.forEach((el) => {
       el.classList.toggle("mode-dark");
     });
     theme_text.forEach((el) => {

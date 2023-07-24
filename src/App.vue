@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <router-view />
   </div>
-  <Footer />
+  <!-- <Footer /> -->
 </template>
 
 <script setup>
 import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+// import Footer from "./components/Footer.vue";
 </script>
 
 <style>
@@ -17,12 +17,12 @@ body {
   min-height: 100vh;
 }
 body.mode-light {
-  background-color: #f2f8ef;
+  background-color: #d5e4ec;
   background-image: linear-gradient(
     40deg,
-    #fafdf7 0%,
-    #d7ebef 50%,
-    #ffffff 100%
+    #f4f7f8 0%,
+    #f1f5f7 50%,
+    #f1f4f7 100%
   );
   background-repeat: no-repeat;
 }
@@ -38,20 +38,24 @@ body.mode-light {
 .navbar.mode-light .navbar-brand,
 .navbar.mode-light .nav-link {
   font-weight: 500;
-  color: #1a7e91;
+  color: #021624;
 }
 .navbar.mode-light .dropdown-toggle.show {
   font-weight: 500;
-  color: #1a7e91;
+  color: #021624;
 }
 .navbar.mode-light .navbar-toggler i {
   font-weight: 500;
-  color: #1a7e91 !important;
+  color: #021624 !important;
 }
 .bg-content {
-  background-color: rgba(215, 235, 239, 0.8) !important;
-  box-shadow: rgba(26, 125, 145, 0.16) 0px 2px 5px,
-    rgba(26, 125, 145, 0.23) 0px 2px 5px;
+  background-color: #dfeef5 !important;
+}
+.bg-content2 {
+  background-color: #d4e9f3 !important;
+}
+.bg-content3 {
+  background-color: #cce7f3 !important;
 }
 
 .table.mode-light > :not(caption) > * > * {
@@ -61,19 +65,20 @@ body.mode-light {
 /* ----------- Modo oscuro ---------- */
 /* GRADIENT BACKGROUND */
 body.mode-dark {
-  background-color: #1a0d26;
+  background-color: #0d2026;
   background-image: linear-gradient(
     40deg,
-    #0d3a4e 0%,
-    #1a0d26 50%,
-    #240442 100%
+    #052235 0%,
+    #021624 50%,
+    #051929 100%
   );
 }
 .navbar.mode-dark,
 .footer.mode-dark {
-  background-color: rgba(26, 13, 38, 0.96) !important;
-  box-shadow: rgba(43, 5, 53, 0.16) 0px 2px 3px,
-    rgba(82, 9, 100, 0.23) 0px 2px 3px;
+  /* color: rgb(2, 22, 36); */
+  background-color: rgba(2, 22, 36, 0.96) !important;
+  box-shadow: rgba(9, 79, 126, 0.16) 0px 2px 3px,
+    rgba(20, 72, 107, 0.23) 0px 2px 3px;
 }
 .navbar.mode-dark .navbar-brand,
 .navbar.mode-dark .nav-link {
@@ -99,9 +104,18 @@ body.mode-dark {
 }
 
 .bg-content.mode-dark {
-  background-color: rgba(28, 14, 42, 0.5) !important;
-  box-shadow: rgba(43, 5, 53, 0.16) 0px 2px 3px,
-    rgba(82, 9, 100, 0.23) 0px 2px 3px;
+  background-color: #052235 !important;
+  color: #fff !important;
+}
+.bg-content.mode-dark thead tr th {
+  color: #fff !important;
+}
+.bg-content2.mode-dark {
+  background-color: #021624 !important;
+  color: #fff !important;
+}
+.bg-content3.mode-dark {
+  background-color: #0c3753 !important;
   color: #fff !important;
 }
 

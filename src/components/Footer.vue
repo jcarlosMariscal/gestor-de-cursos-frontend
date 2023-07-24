@@ -2,17 +2,20 @@
   <!-- ======= Footer ======= -->
   <footer
     id="footer"
-    class="bg-content footer"
+    class="footer"
     :class="{ 'mode-dark': darkmode, 'mode-light': !darkmode }"
   >
     <div class="container footer-bottom clearfix">
-      <div class="copyright theme-text" :class="{ 'mode-light': !darkmode }">
+      <div
+        class="copyright theme-text"
+        :class="{ 'mode-dark': darkmode, 'mode-light': !darkmode }"
+      >
         &copy; Copyright <strong><span>JCarlos Mariscal</span></strong
         >. All Rights Reserved
       </div>
       <div
         class="credits social theme-text"
-        :class="{ 'mode-light': !darkmode }"
+        :class="{ 'mode-light': darkmode }"
       >
         <a
           class="social-linkedin theme-text"

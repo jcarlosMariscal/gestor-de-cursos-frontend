@@ -46,8 +46,8 @@
     <!-- ======= Clients Section ======= -->
     <section
       id="clients"
-      class="clients section-bg bg-content"
-      :class="{ 'mode-dark': !darkmode, 'mode-light': darkmode }"
+      class="clients section-bg bg-content3"
+      :class="{ 'mode-dark': darkmode }"
     >
       <div class="container">
         <div class="row" data-aos="zoom-in">
