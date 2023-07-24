@@ -61,19 +61,19 @@ body.mode-light {
 /* ----------- Modo oscuro ---------- */
 /* GRADIENT BACKGROUND */
 body.mode-dark {
-  background-color: #030b46;
+  background-color: #1a0d26;
   background-image: linear-gradient(
     40deg,
-    #260346 0%,
-    #114a4d 50%,
-    #2f093e 100%
+    #0d3a4e 0%,
+    #1a0d26 50%,
+    #240442 100%
   );
 }
 .navbar.mode-dark,
 .footer.mode-dark {
-  background-color: rgba(16, 78, 90, 0.96) !important;
-  box-shadow: rgba(255, 255, 255, 0.16) 0px 2px 3px,
-    rgba(255, 255, 255, 0.23) 0px 2px 3px;
+  background-color: rgba(26, 13, 38, 0.96) !important;
+  box-shadow: rgba(43, 5, 53, 0.16) 0px 2px 3px,
+    rgba(82, 9, 100, 0.23) 0px 2px 3px;
 }
 .navbar.mode-dark .navbar-brand,
 .navbar.mode-dark .nav-link {
@@ -90,8 +90,8 @@ body.mode-dark {
 }
 
 .table.mode-dark > :not(caption) > * > * {
-  background-color: rgba(9, 32, 60, 0.2) !important;
-  color: #dbe1d8;
+  background-color: rgba(28, 14, 42, 0.2) !important;
+  color: #1c0e2a;
 }
 .table.mode-dark {
   background-color: rgba(16, 78, 90, 1) !important;
@@ -99,9 +99,9 @@ body.mode-dark {
 }
 
 .bg-content.mode-dark {
-  background-color: rgba(16, 78, 90, 0.3) !important;
-  box-shadow: rgba(255, 255, 255, 0.16) 0px 2px 5px,
-    rgba(255, 255, 255, 0.23) 0px 2px 5px;
+  background-color: rgba(28, 14, 42, 0.5) !important;
+  box-shadow: rgba(43, 5, 53, 0.16) 0px 2px 3px,
+    rgba(82, 9, 100, 0.23) 0px 2px 3px;
   color: #fff !important;
 }
 
