@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-3">
+  <div class="row mt-3 mb-3">
     <div class="col-md-6 offset-md-3">
       <div
         class="card bg-content"
@@ -15,11 +15,11 @@
               lista</router-link
             >
           </div>
-          <div class="d-grid col-6 mx-auto mb-3">
+          <div class="d-grid col-6 mx-auto mb-3 d-flex justify-content-center">
             <img
               alt=""
               v-if="foto"
-              style="height: 18rem"
+              style="height: 10rem; width: 10rem"
               :src="foto"
               id="fotoimg"
               class="img-thumbnail"
@@ -28,22 +28,94 @@
               alt=""
               v-else
               id="fotoimg"
-              style="height: 18rem"
+              style="height: 10rem"
               src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-256.png"
               class="img-thumbnail"
             />
           </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"
-              ><i class="fa-solid fa-user"></i
-            ></span>
-            <label v-text="nombre" class="form-control"></label>
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"
-              ><i class="fa-solid fa-user"></i
-            ></span>
-            <label v-text="apellido" class="form-control"></label>
+          <div class="row">
+            <hr />
+            <h6 class="text-center">Información Personal</h6>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-user"></i
+                ></span>
+                <label v-text="nombre" class="form-control"></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-user"></i
+                ></span>
+                <label v-text="apellido" class="form-control"></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-phone"></i
+                ></span>
+                <label v-text="telefono" class="form-control"></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-envelope"></i
+                ></span>
+                <label v-text="correo" class="form-control"></label>
+              </div>
+            </div>
+            <hr />
+            <h6 class="text-center">Información Generacional</h6>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-users"></i
+                ></span>
+                <label
+                  v-text="generacionData.nombre"
+                  class="form-control"
+                ></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-file-lines"></i
+                ></span>
+                <label
+                  v-text="generacionData.descripcion"
+                  class="form-control"
+                ></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-calendar-check"></i
+                ></span>
+                <label
+                  v-text="generacionData.fecha_inicio"
+                  class="form-control"
+                ></label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="fa-solid fa-calendar-xmark"></i
+                ></span>
+                <label
+                  v-text="generacionData.fecha_final"
+                  class="form-control"
+                ></label>
+              </div>
+            </div>
+            <hr />
+            <h6 class="text-center">Cursos/Materias</h6>
           </div>
         </div>
       </div>
@@ -65,7 +137,11 @@ export default {
       nombre: "",
       apellido: "",
       foto: "",
+      telefono: "",
+      correo: "",
+      generacionData: {},
       url: "http://academicobackend.test/api/v1/estudiantes",
+      url2: "http://academicobackend.test/api/v1/generaciones",
       cargando: false,
       darkmode: false,
     };
@@ -88,11 +164,15 @@ export default {
         this.nombre = res.data.data.nombre;
         this.apellido = res.data.data.apellido;
         this.foto = res.data.data.foto;
-})
+        this.telefono = res.data.data.telefono;
+        this.correo = res.data.data.email;
+        const generacion_id = res.data.data.generacion_id;
+        axios.get(`${this.url2}/${generacion_id}`).then(res => this.generacionData = res.data.data);
+
+      })
     },
   },
 };
 </script>
 
 <style scoped></style>
-../helpers/funciones

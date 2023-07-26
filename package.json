@@ -9,6 +9,7 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free": "^6.4.0",
+    "@migliori/universal-icon-picker": "^1.1.6",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "boxicons": "^2.1.4",
@@ -17,6 +18,7 @@
     "sweetalert2": "^11.7.12",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vue3-colorpicker": "^2.1.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

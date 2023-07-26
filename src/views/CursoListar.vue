@@ -11,7 +11,10 @@
               <th>#</th>
               <th>ID</th>
               <th>NOMBRE</th>
+              <th>DESCRIPCIÓN</th>
+              <th>ICONO</th>
               <th>HORAS</th>
+              <th>FECHA</th>
               <th></th>
             </tr>
           </thead>
@@ -26,6 +29,24 @@
               <td v-text="i + 1"></td>
               <td v-text="cur.id"></td>
               <td v-text="cur.nombre"></td>
+              <td v-text="cur.descripcion"></td>
+              <td>
+                <div
+                  class="d-flex align-items-center justify-content-center"
+                  style="
+                    width: 3rem !important;
+                    height: 3rem !important;
+                    border-radius: 50%;
+                  "
+                  :style="{ background: cur.color + '!important' }"
+                >
+                  <i
+                    class="fa-solid text-white"
+                    :class="cur.icono"
+                    style="font-size: 1.5rem"
+                  ></i>
+                </div>
+              </td>
               <td v-text="cur.horas"></td>
               <td
                 v-text="new Date(cur.created_at).toLocaleDateString('en-US')"

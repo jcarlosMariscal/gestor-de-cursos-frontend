@@ -135,4 +135,10 @@ body.mode-dark {
 .btn-custom {
   text-decoration: none;
 }
+.ripple-surface {
+  transform: none !important;
+}
+.ripple-wave {
+  display: none !important;
+}
 </style>
