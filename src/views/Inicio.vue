@@ -52,7 +52,7 @@
       <div class="container">
         <div class="row" data-aos="zoom-in">
           <div
-            class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            class="col-lg-3 col-md-4 col-12 d-flex align-items-center justify-content-center"
           >
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Firebase_Logo.png"
@@ -63,7 +63,7 @@
           </div>
 
           <div
-            class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            class="col-lg-3 col-md-4 col-12 d-flex align-items-center justify-content-center"
           >
             <img
               src="https://cdn.icon-icons.com/icons2/2699/PNG/512/laravel_logo_icon_170314.png"
@@ -73,7 +73,7 @@
           </div>
 
           <div
-            class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            class="col-lg-3 col-md-4 col-12 d-flex align-items-center justify-content-center"
           >
             <img
               src="https://blog.amio.io/content/images/2018/06/vue.png"
@@ -83,7 +83,7 @@
           </div>
 
           <div
-            class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            class="col-lg-3 col-md-4 col-12 d-flex align-items-center justify-content-center"
           >
             <img
               src="https://www.nicepng.com/png/full/142-1423886_html5-css3-js-html-css-javascript.png"

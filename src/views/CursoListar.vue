@@ -8,13 +8,13 @@
         >
           <thead>
             <tr>
-              <th>#</th>
-              <th>ID</th>
+              <!-- <th>#</th> -->
+              <!-- <th>ID</th> -->
               <th>NOMBRE</th>
               <th>DESCRIPCIÓN</th>
               <th>ICONO</th>
               <th>HORAS</th>
-              <th>FECHA</th>
+              <!-- <th>FECHA</th> -->
               <th></th>
             </tr>
           </thead>
@@ -26,8 +26,8 @@
               </td>
             </tr>
             <tr v-else v-for="(cur, i) in cursos" :key="cur.id">
-              <td v-text="i + 1"></td>
-              <td v-text="cur.id"></td>
+              <!-- <td v-text="i + 1"></td> -->
+              <!-- <td v-text="cur.id"></td> -->
               <td v-text="cur.nombre"></td>
               <td v-text="cur.descripcion"></td>
               <td>
@@ -48,9 +48,9 @@
                 </div>
               </td>
               <td v-text="cur.horas"></td>
-              <td
+              <!-- <td
                 v-text="new Date(cur.created_at).toLocaleDateString('en-US')"
-              ></td>
+              ></td> -->
               <td>
                 <router-link
                   :to="{ path: 'view-course/' + cur.id }"

@@ -42,10 +42,12 @@
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Inicio</router-link>
+              <router-link to="/" class="nav-link" @click="resetMenu"
+                >Inicio</router-link
+              >
             </li>
             <li class="nav-item">
-              <router-link to="/dashboard" class="nav-link"
+              <router-link to="/dashboard" class="nav-link" @click="resetMenu"
                 >Dashboard</router-link
               >
             </li>
@@ -64,10 +66,16 @@
                 Estudiantes
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link to="/students" class="dropdown-item"
+                <router-link
+                  to="/students"
+                  class="dropdown-item"
+                  @click="resetMenu"
                   >Listar Estudiantes</router-link
                 >
-                <router-link to="/form-student" class="dropdown-item"
+                <router-link
+                  to="/form-student"
+                  class="dropdown-item"
+                  @click="resetMenu"
                   >Registrar nuevo</router-link
                 >
               </ul>
@@ -84,10 +92,16 @@
                 Cursos
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link to="/courses" class="dropdown-item"
+                <router-link
+                  to="/courses"
+                  class="dropdown-item"
+                  @click="resetMenu"
                   >Listar Cursos</router-link
                 >
-                <router-link to="/form-course" class="dropdown-item"
+                <router-link
+                  to="/form-course"
+                  class="dropdown-item"
+                  @click="resetMenu"
                   >Registrar nuevo</router-link
                 >
               </ul>
@@ -246,6 +260,16 @@ const toggle = () => {
 onMounted(() => {
   if (!auth.currentUser) isLoggedIn.value = false;
   toggle();
+  window.addEventListener("resize", (e) => {
+    console.log(window.innerWidth);
+    if (innerWidth >= 992) {
+      navbarMobile.value = false;
+      document.body.style.overflow = "auto";
+    } else {
+      navbarMobile.value = true;
+      document.body.style.overflow = "hidden";
+    }
+  });
 });
 const changeMode = () => {
   const theme = localStorage.getItem("theme");
@@ -297,6 +321,10 @@ const cerrar = async () => {
       3000
     );
   }
+};
+const resetMenu = () => {
+  const menu = document.getElementById("menu-toggle");
+  menu.click();
 };
 </script>
 <style scoped>

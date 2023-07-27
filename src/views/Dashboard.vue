@@ -61,11 +61,19 @@
           </div>
         </main>
         <section class="graphics p-3">
-          <canvas ref="myChart" class="bg-content p-3"></canvas>
+          <canvas
+            ref="myChart"
+            class="bg-content p-3"
+            :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+          ></canvas>
         </section>
         <div class="row graphics2 mb-5">
           <div class="col-12">
-            <canvas ref="myChart2" class="bg-content p-3"></canvas>
+            <canvas
+              ref="myChart2"
+              class="bg-content p-3"
+              :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+            ></canvas>
           </div>
         </div>
         <div class="row graphics3">
