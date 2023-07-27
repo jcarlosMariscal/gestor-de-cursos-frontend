@@ -85,14 +85,24 @@ const router = createRouter({
 });
 
 // Agregar un guardia de navegación para proteger rutas
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const currentUser = auth.currentUser;
 
-  if (requiresAuth && !currentUser) {
-    next("/login"); // Redirige a la página de inicio de sesión si no hay un usuario autenticado y la ruta requiere autenticación
-  } else {
-    next(); // Continúa navegando a la ruta deseada
+  try {
+    const currentUser = await new Promise((resolve, reject) => {
+      auth.onAuthStateChanged((user) => {
+        resolve(user);
+      }, reject);
+    });
+
+    if (requiresAuth && !currentUser) {
+      next("/login");
+    } else {
+      next(); // Continúa navegando a la ruta deseada
+    }
+  } catch (error) {
+    console.error("Error al verificar la autenticación:", error);
+    next("/login"); // En caso de error, redirige a la página de inicio de sesión
   }
 });
 

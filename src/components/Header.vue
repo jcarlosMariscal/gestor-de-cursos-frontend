@@ -41,14 +41,14 @@
           </router-link>
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" v-if="!isLoggedIn">
               <router-link to="/" class="nav-link" @click="resetMenu"
                 >Inicio</router-link
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-else>
               <router-link to="/dashboard" class="nav-link" @click="resetMenu"
-                >Dashboard</router-link
+                >Inicio</router-link
               >
             </li>
             <!-- <li class="nav-item">
@@ -162,12 +162,12 @@
             class="dropdown-menu dropdown-avatar-custom"
             aria-labelledby="navbarDropdownMenuAvatar"
           >
-            <li>
+            <!-- <li>
               <a class="dropdown-item" href="#">Mi perfil</a>
             </li>
             <li>
               <a class="dropdown-item" href="#">Configuración</a>
-            </li>
+            </li> -->
             <li>
               <a class="dropdown-item" @click.prevent="cerrar">Cerrar sesión</a>
             </li>
@@ -191,14 +191,14 @@
           </svg> -->
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref, watch } from "vue";
 import { auth } from "../helpers/firebaseConfig";
 import { useRouter } from "vue-router";
 import { GoogleAuthProvider } from "firebase/auth";
 import { alertaForm } from "../helpers/funciones";
 
 const router = useRouter();
-const isLoggedIn = ref(true);
+const isLoggedIn = ref(false);
 const navbarMobile = ref(false);
 let darkmode = ref(false);
 // console.log(darkmode.value);
@@ -257,11 +257,22 @@ const toggle = () => {
     });
   }
 };
+watch(
+  // () => auth.currentUser,
+  // (newUser) => {
+  //   isLoggedIn.value = !!newUser;
+  //   console.log(isLoggedIn.value);
+  // }
+  auth.onAuthStateChanged((user) => {
+    isLoggedIn.value = user == null ? false : true;
+  })
+);
 onMounted(() => {
-  if (!auth.currentUser) isLoggedIn.value = false;
+  auth.onAuthStateChanged((user) => {
+    isLoggedIn.value = user == null ? false : true;
+  });
   toggle();
   window.addEventListener("resize", (e) => {
-    console.log(window.innerWidth);
     if (innerWidth >= 992) {
       navbarMobile.value = false;
       document.body.style.overflow = "auto";
