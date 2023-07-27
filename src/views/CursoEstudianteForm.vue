@@ -16,56 +16,34 @@
             </div>
           </div>
           <section v-else>
-            <div class="tile" v-for="(cur, i) in cursos" :key="cur.id">
-              <input type="checkbox" name="sports" :id="'course' + cur.id" />
+            <div class="tile" v-for="(cur, index) in cursos" :key="cur.id">
+              <input
+                type="checkbox"
+                name="sports"
+                :id="'course' + cur.id"
+                :checked="cur.selected"
+                @click="seleccionar(index)"
+                :style="{
+                  background: cur.selected ? cur.color + '!important' : 'white',
+                }"
+              />
               <label :for="'course' + cur.id">
-                <i class="fas fa-search"></i>
+                <i class="fas" :class="cur.icono"></i>
                 <h6>{{ cur.nombre }}</h6>
               </label>
             </div>
-            <!-- <div class="tile">
-              <input type="checkbox" name="sports" id="course2" />
-              <label for="course2">
-                <i class="fas fa-shuttle-space"></i>
-                <h6>Astro Física</h6>
-              </label>
-            </div>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course3" />
-              <label for="course3">
-                <i class="fas fa-atom"></i>
-                <h6>Físico Nuclear</h6>
-              </label>
-            </div>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course4" />
-              <label for="course4">
-                <i class="fas fa-book-atlas"></i>
-                <h6>Geofísica</h6>
-              </label>
-            </div>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course5" />
-              <label for="course5">
-                <i class="fas fa-ear-listen"></i>
-                <h6>Acústica</h6>
-              </label>
-            </div>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course6" />
-              <label for="course6">
-                <i class="fas fa-dna"></i>
-                <h6>Biología</h6>
-              </label>
-            </div>
-            <div class="tile">
-              <input type="checkbox" name="sports" id="course7" />
-              <label for="course7">
-                <i class="fas fa-calculator"></i>
-                <h6>Matemáticas</h6>
-              </label>
-            </div> -->
           </section>
+          <div class="text-center">
+            <div class="d-grid col-6 mx-auto mb-3">
+              <button
+                type="button"
+                class="btn btn-success"
+                @click.prevent="guardar"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +51,7 @@
 </template>
 
 <script lang="js">
-import { mostrarAlerta, enviarSolicitud } from "../helpers/funciones";
+import { mostrarAlerta, enviarSolicitud, alertaForm } from "../helpers/funciones";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
@@ -83,7 +61,8 @@ export default {
   data() {
     return {
       id: false,
-      url: "http://academicobackend.test/api/v1/cursos",
+      id_student: 0,
+      url: "http://academicobackend.test/api/v1/estudiantes",
       cargando: false,
       formEdit: false,
       darkmode: false,
@@ -94,6 +73,7 @@ export default {
   mounted() {
     const route = useRoute();
     this.router = useRouter();
+    this.id_student = route.params.id;
     const theme = localStorage.getItem("theme");
     if (theme === "light") {
       this.darkmode = false;
@@ -103,13 +83,22 @@ export default {
     this.getCursos();
   },
   methods: {
+    formattedDate () {
+  const today = new Date();
+  const year = today.getFullYear().toString().padStart(4, "0");
+  const month = (today.getMonth() + 1).toString().padStart(2, "0");
+  const day = today.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
+},
     getCursos() {
       this.cargando = true;
       axios
         .get("http://academicobackend.test/api/v1/cursos")
         .then((res) => {
           console.log(res);
-          this.cursos = res.data;
+          this.cursos = res.data.map((curso) => {
+    return { ...curso, selected: false };
+  });
           this.cargando = false;
         });
     },
@@ -118,18 +107,40 @@ export default {
       let miFoto = document.getElementById("fotoimg");
       this.foto = miFoto.src;
     },
+    seleccionar(index) {
+      const select = this.cursos[index];
+      select.selected = !select.selected;
+      // console.log(selected)
+    },
+    guardar() {
+      console.log(this.cursos);
+      const data = this.cursos
+  .filter((el) => el.selected) // Filtra solo los elementos con selected=true
+  .map((el) => el.id); // Crea un nuevo arreglo solo con las propiedades 'id' de los elementos seleccionados
+
+      // console.log(data);
+      if (data.length <= 0) {
+         mostrarAlerta("Seleccione al menos un curso", "warning")
+      } else {
+        data.forEach(el => {
+          let parametros = {
+            id: el,
+            fecha_inscripcion: this.formattedDate(),
+            calificacion: 0,
+            nota: "Estudiante registrado al curso."
+          }
+          enviarSolicitud('POST', parametros, `${this.url}/${this.id_student}/relacionar-curso`, 'Estudiante registrado', false);
+        });
+        alertaForm("Cursos asignados correctamente", "success")
+        this.router.push("/students");
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
 section {
-  /* width: 100vmin; */
-  /* height: 100vh; */
-  /* position: absolute; */
-  /* transform: translate(-50%, -50%); */
-  /* left: 50%; */
-  /* top: 50%; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -164,11 +175,13 @@ input[type="checkbox"]:after {
   color: #e2e6f3;
 }
 input[type="checkbox"]:hover {
-  transform: scale(1.08);
+  /* transform: scale(1.08); */
+  animation: move 0.6s infinite;
 }
-input[type="checkbox"]:checked {
-  /* border: 3px solid green; */
-  background-color: rgba(19, 155, 91, 0.9);
+@keyframes move {
+  50% {
+    transform: translateY(2.5%);
+  }
 }
 input[type="checkbox"]:checked + label i,
 input[type="checkbox"]:checked + label h6 {
@@ -177,7 +190,7 @@ input[type="checkbox"]:checked + label h6 {
 input[type="checkbox"]:checked:after {
   font-weight: 900;
   content: "\f058";
-  color: #478bfb;
+  color: white;
 }
 label {
   display: flex;
