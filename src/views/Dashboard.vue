@@ -3,17 +3,13 @@
     <div class="col-md-10 offset-md-1">
       <div class="dashboard">
         <main class="content-wrap">
-          <header class="content-head">
-            <h1>Societe Generale</h1>
-
-            <div class="action">
-              <button>Save search</button>
-            </div>
-          </header>
-
           <div class="content">
             <section class="info-boxes">
-              <div class="info-box">
+              <div
+                class="info-box bg-content"
+                style="border: none !important"
+                :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+              >
                 <div class="box-icon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -31,119 +27,56 @@
                 </div>
 
                 <div class="box-content">
-                  <span class="big">3 Generaciones</span>
+                  <span
+                    class="big theme-text"
+                    :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+                    >Generaciones</span
+                  >
                   <div class="box-actions">
-                    <button><i class="fas fa-eye"></i></button>
+                    <!-- <button><i class="fas fa-eye"></i></button> -->
 
                     <button
                       type="button"
                       data-bs-toggle="modal"
                       data-bs-target="#modalGen"
                     >
-                      <i class="fas fa-plus"></i>
+                      <i class="fas fa-plus" title="Agregar generación"></i>
                     </button>
-                    <button>
+                    <!-- <button>
                       <i class="fas fa-download"></i>
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </div>
 
-              <div class="info-box">
-                <div class="box-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"
-                    />
-                  </svg>
-                </div>
-
-                <div class="box-content">
-                  <span class="big">12 Alumnos Activos</span>
-                  Related articles
-                </div>
-              </div>
-            </section>
-
-            <section class="person-boxes">
-              <div class="person-box">
-                <div class="box-avatar">
-                  <img
-                    src="https://images.unsplash.com/photo-1495791085242-4abf2dcc3be3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=30e718c0d1804c6365c73fc48419505d&auto=format&fit=crop&w=140&q=80"
-                    alt="Frederic Levy, Chief Executive Officer"
-                  />
-                </div>
-
-                <div class="box-bio">
-                  <h2 class="bio-name">Frederic Levy</h2>
-                  <p class="bio-position">Chief Executive Officer</p>
-                </div>
-
-                <div class="box-actions">
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M6.855 14.365l-1.817 6.36a1.001 1.001 0 0 0 1.517 1.106L12 18.202l5.445 3.63a1 1 0 0 0 1.517-1.106l-1.817-6.36 4.48-3.584a1.001 1.001 0 0 0-.461-1.767l-5.497-.916-2.772-5.545c-.34-.678-1.449-.678-1.789 0L8.333 8.098l-5.497.916a1 1 0 0 0-.461 1.767l4.48 3.584zm2.309-4.379c.315-.053.587-.253.73-.539L12 5.236l2.105 4.211c.144.286.415.486.73.539l3.79.632-3.251 2.601a1.003 1.003 0 0 0-.337 1.056l1.253 4.385-3.736-2.491a1 1 0 0 0-1.109-.001l-3.736 2.491 1.253-4.385a1.002 1.002 0 0 0-.337-1.056l-3.251-2.601 3.79-.631z"
-                      />
-                    </svg>
-                  </button>
-
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M18 18H6V6h7V4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8h-2v7z"
-                      />
-                      <path
-                        d="M17.465 5.121l-6.172 6.172 1.414 1.414 6.172-6.172 2.12 2.121L21 3h-5.657z"
-                      />
-                    </svg>
-                  </button>
-
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"
-                      />
-                    </svg>
-                  </button>
-
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 8L17 8 17 11 14 11 14 13 17 13 17 16 19 16 19 13 22 13 22 11 19 11zM3 20h10c.553 0 1-.447 1-1v-.5c0-2.54-1.212-4.651-3.077-5.729C11.593 12.063 12 11.1 12 10c0-2.28-1.72-4-4-4s-4 1.72-4 4c0 1.1.407 2.063 1.077 2.771C3.212 13.849 2 15.96 2 18.5V19C2 19.553 2.448 20 3 20zM6 10c0-1.178.822-2 2-2s2 .822 2 2-.822 2-2 2S6 11.178 6 10zM8 14c2.43 0 3.788 1.938 3.977 4H4.023C4.212 15.938 5.57 14 8 14z"
-                      />
-                    </svg>
-                  </button>
-                </div>
+              <div
+                class="info-box bg-content d-flex flex-column align-items-center justify-content-center en-desarrollo"
+                style="border: none !important"
+                :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
+              >
+                <i class="fas fa-cog fa-custom" style="font-size: 3.2rem"></i>
+                <p>En desarrollo...</p>
               </div>
             </section>
           </div>
         </main>
+        <section class="graphics p-3">
+          <canvas ref="myChart" class="bg-content p-3"></canvas>
+        </section>
+        <div class="row graphics2 mb-5">
+          <div class="col-12">
+            <canvas ref="myChart2" class="bg-content p-3"></canvas>
+          </div>
+        </div>
+        <div class="row graphics3">
+          <!-- <div class="col-12">
+            <canvas
+              ref="myChart2"
+              class="bg-content p-3"
+              style="width: 100%"
+            ></canvas>
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -247,7 +180,10 @@
 
 <script setup>
 import { enviarSolicitud, mostrarAlerta } from "@/helpers/funciones";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+// import { defineProps } from "vue";
+import Chart from "chart.js/auto";
+import axios from "axios";
 
 const formattedDate = (future) => {
   const today = new Date();
@@ -257,11 +193,15 @@ const formattedDate = (future) => {
   const day = today.getDate().toString().padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
+let loaded = ref(false);
 
+const myChart = ref(null);
+const myChart2 = ref(null);
 let nombre = ref("");
 let descripcion = ref("");
 let fecha_inicio = ref(formattedDate(0));
 let fecha_final = ref(formattedDate(30));
+let darkmode = ref(false);
 const url = "http://academicobackend.test/api/v1/generaciones";
 
 const convertDate = (fecha) => {
@@ -269,7 +209,102 @@ const convertDate = (fecha) => {
   const fechaDB = `${part[2]}-${part[1]}-${part[0]}`;
   return fechaDB;
 };
-// convertDate();
+const convertirARGBA = (color, opacidad) => {
+  // Extrayendo los componentes del color
+  color = color.toString();
+  const rgb = color.match(/\d+/g);
+  const r = rgb[0];
+  const g = rgb[1];
+  const b = rgb[2];
+
+  // Construyendo la notación rgba con el valor de opacidad
+  const rgba = `rgba(${r}, ${g}, ${b}, ${opacidad})`;
+  return rgba;
+};
+onMounted(async () => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "light") {
+    darkmode.value = false;
+  } else {
+    darkmode.value = true;
+  }
+  await firstGraphic();
+  await secondGraphic();
+});
+const firstGraphic = async () => {
+  loaded.value = false;
+  let res = await axios.get(
+    "http://academicobackend.test/api/v1/graficas/cursos"
+  );
+  let data = await res.data.data;
+  console.log(data);
+  const chartData = data.map((item) => item.cantidad_estudiantes);
+  const chartColor = data.map((item) => item.color);
+  const chartColorRGBA = data.map((item) => convertirARGBA(item.color, 0.6));
+  const chartLabels = data.map((item) => item.nombre);
+  console.log(res);
+  const ctx = myChart.value.getContext("2d");
+  new Chart(ctx, {
+    type: "bar", // Tipo de gráfico (puedes cambiarlo a 'line', 'pie', etc.)
+    data: {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: "Estudiantes registrados en los cursos",
+          data: chartData,
+          backgroundColor: chartColorRGBA,
+          borderColor: chartColor,
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+};
+function generarColorAleatorio() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+const secondGraphic = async () => {
+  loaded.value = false;
+  let res = await axios.get(
+    "http://academicobackend.test/api/v1/graficas/generacion"
+  );
+  let data = await res.data.data;
+  console.log(data);
+  // let randomColor = generarColorAleatorio();
+  const chartData = data.map((item) => item.numero_estudiantes);
+  const chartLabels = data.map((item) => item.nombre_generacion);
+  const chartColor = data.map((item) => generarColorAleatorio());
+  // console.log(chartColor);
+  const chartColorRGBA = chartColor.map((item) => convertirARGBA(item, 0.6));
+  console.log(res);
+  const ctx = myChart2.value.getContext("2d");
+  new Chart(ctx, {
+    type: "doughnut", // Tipo de gráfico (puedes cambiarlo a 'line', 'pie', etc.)
+    data: {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: "Estudiantes registrados en los cursos",
+          data: chartData,
+          backgroundColor: chartColorRGBA,
+          borderColor: chartColor,
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+};
 const guardarGeneracion = () => {
   if (nombre.value.trim() == "") {
     mostrarAlerta("Ingrese un nombre", "warning", "nombre");
@@ -299,46 +334,15 @@ const guardarGeneracion = () => {
   grid-gap: 0;
   grid-template-columns: 300px auto;
   grid-template-rows: 80px auto;
-  grid-template-areas: "search search" "content content";
+  grid-template-areas: "content graphics" "content graphics" "graphics2 graphics2";
 }
 .content-wrap {
   grid-area: content;
   /* padding: 3em; */
-  overflow: auto;
+  /* overflow: auto; */
+  height: auto;
 }
-.content-wrap .content-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.content-wrap .content-head h1 {
-  font-size: 1.375em;
-  line-height: 100%;
-  color: #1b253d;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-}
-.content-wrap .content-head .action button {
-  border: 0;
-  background: #4b84fe;
-  color: #fff;
-  width: auto;
-  height: 3.5em;
-  padding: 0 2.25em;
-  border-radius: 3.5em;
-  font-size: 1em;
-  text-transform: uppercase;
-  font-weight: 600;
-  transition: background-color 0.15s ease;
-}
-.content-wrap .content-head .action button:hover {
-  background-color: #1861fe;
-}
-.content-wrap .content-head .action button:hover:active {
-  background-color: #0149e2;
-  transition: none;
-}
+
 .content-wrap .info-boxes {
   padding: 3em 0 2em;
   display: grid;
@@ -351,14 +355,14 @@ const guardarGeneracion = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 3em;
+  padding: 0 1em;
   border: 1px solid #ede8f0;
   border-radius: 5px;
 }
 .content-wrap .info-boxes .info-box .box-icon svg {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 .content-wrap .info-boxes .info-box .box-icon svg path,
 .content-wrap .info-boxes .info-box .box-icon svg circle {
@@ -370,7 +374,7 @@ const guardarGeneracion = () => {
 }
 .content-wrap .info-boxes .info-box .box-content .big {
   display: block;
-  font-size: 1.5em;
+  font-size: 1.2em;
   line-height: 150%;
   color: #1b253d;
 }
@@ -453,6 +457,9 @@ const guardarGeneracion = () => {
   background: none;
   width: 32px;
   height: 32px;
+  background: #1b253d;
+  border-radius: 50%;
+  opacity: 0.3;
   margin: 0;
   padding: 0;
 }
@@ -464,7 +471,68 @@ const guardarGeneracion = () => {
   color: #b6bbc6;
   transition: fill 0.15s ease;
 }
-.box-actions button:hover i {
-  color: #2b3a60;
+.box-actions button:hover {
+  /* color: #2b3a60; */
+  transition: all 0.5s ease-in-out;
+  opacity: 0.8;
+}
+.graphics {
+  grid-area: graphics;
+  width: 100%;
+}
+.graphics2 {
+  grid-area: graphics2;
+}
+.graphics3 {
+  grid-area: graphics3;
+}
+.en-desarrollo .fa-custom {
+  opacity: 0.4;
+  animation: turn 3s infinite linear;
+}
+.en-desarrollo p {
+  opacity: 0.4;
+}
+@keyframes turn {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.graphics2 canvas {
+  width: 50%;
+}
+@media screen and (max-width: 991px) {
+  .dashboard {
+    /* display: grid; */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* grid-gap: 0; */
+    /* grid-template-columns: 300px auto; */
+    /* grid-template-rows: 80px auto; */
+    grid-template-areas: "content content" "graphics graphics" "graphics2 graphics2";
+  }
+  .graphics {
+    margin-top: 25vh;
+  }
+  .graphics canvas {
+    width: 100%;
+    height: 250px;
+  }
+  .graphics2 canvas {
+    width: 100% !important;
+    height: 300px;
+  }
+  @media screen and (max-width: 632px) {
+    .graphics {
+      margin-top: 50vh;
+    }
+  }
 }
 </style>

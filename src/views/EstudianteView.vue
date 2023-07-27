@@ -115,7 +115,24 @@
               </div>
             </div>
             <hr />
-            <h6 class="text-center">Cursos/Materias</h6>
+            <h6 class="text-center" v-if="cursos.length > 0">
+              Cursos/Materias
+            </h6>
+            <div class="d-grid col-6 mx-auto mb-3" v-else>
+              <router-link class="btn btn-success" :to="redirectTo"
+                >Añadir cursos</router-link
+              >
+            </div>
+            <div class="col-lg-6 col-md-12" v-for="cur in cursos" :key="cur.id">
+              <div class="input-group mb-3">
+                <span
+                  class="input-group-text"
+                  :style="{ background: cur.color }"
+                  ><i class="fa-solid text-white" :class="cur.icono"></i
+                ></span>
+                <label v-text="cur.nombre" class="form-control"></label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -140,6 +157,8 @@ export default {
       telefono: "",
       correo: "",
       generacionData: {},
+      cursos: [],
+      redirectTo: "",
       url: "http://academicobackend.test/api/v1/estudiantes",
       url2: "http://academicobackend.test/api/v1/generaciones",
       cargando: false,
@@ -161,6 +180,9 @@ export default {
   methods: {
     getEstudiante() {
       axios.get(this.url).then(res => {
+        console.log(res);
+        const id = res.data.data.id;
+        this.redirectTo = "/select-courses/" + id;
         this.nombre = res.data.data.nombre;
         this.apellido = res.data.data.apellido;
         this.foto = res.data.data.foto;
@@ -168,7 +190,7 @@ export default {
         this.correo = res.data.data.email;
         const generacion_id = res.data.data.generacion_id;
         axios.get(`${this.url2}/${generacion_id}`).then(res => this.generacionData = res.data.data);
-
+        axios.get(`${this.url}/cursos`).then(res => this.cursos = res.data.data);
       })
     },
   },

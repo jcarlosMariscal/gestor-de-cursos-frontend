@@ -3,17 +3,17 @@
     <div class="col-lg-8 offset-lg-2">
       <div class="table-responsive">
         <table
-          class="table-bordered table table-hover bg-content"
+          class="table-bordered table table-hover bg-content align-middle"
           :class="{ 'mode-light': !darkmode, 'mode-dark': darkmode }"
         >
           <thead>
             <tr>
-              <th>#</th>
-              <th>ID</th>
+              <!-- <th>#</th> -->
+              <!-- <th>ID</th> -->
               <th>FOTO</th>
               <th>NOMBRE</th>
               <th>APELLIDO</th>
-              <th>REGISTRO</th>
+              <!-- <th>REGISTRO</th> -->
               <th></th>
             </tr>
           </thead>
@@ -25,8 +25,8 @@
               </td>
             </tr>
             <tr v-else v-for="(est, i) in estudiantes" :key="est.id">
-              <td v-text="i + 1"></td>
-              <td v-text="est.id"></td>
+              <!-- <td v-text="i + 1"></td> -->
+              <!-- <td v-text="est.id"></td> -->
               <td class="text-center">
                 <img
                   alt=""
@@ -45,9 +45,9 @@
               </td>
               <td v-text="est.nombre"></td>
               <td v-text="est.apellido"></td>
-              <td
+              <!-- <td
                 v-text="new Date(est.created_at).toLocaleDateString('en-US')"
-              ></td>
+              ></td> -->
               <td>
                 <router-link
                   :to="{ path: 'view-student/' + est.id }"

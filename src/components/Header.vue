@@ -371,7 +371,7 @@ label .bx-moon {
     transition: all 0.5s ease-in-out;
   }
   .content-custom {
-    width: 30vw;
+    width: 40vw;
     height: 100%;
     flex-direction: column;
   }
@@ -380,7 +380,7 @@ label .bx-moon {
   }
   .content-custom.mode-dark {
     /* color: rgb(3, 11, 70); */
-    background-color: rgba(3, 11, 70, 0.8) !important;
+    background-color: rgba(2, 22, 36, 0.8) !important;
   }
   .collapse-custom.show {
     z-index: 999;
